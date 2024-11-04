@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.stupak.data"
+    namespace = "dev.stupak.network"
     compileSdk = 34
 
     defaultConfig {

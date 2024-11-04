@@ -1,4 +1,3 @@
-
 package dev.stupak.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "dev.stupak.airalarmua"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "dev.stupak.airalarmua"
@@ -40,7 +40,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
     packaging {
         resources {
@@ -50,6 +50,11 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":core:ui"))
+    implementation(project(":feature:main"))
+    implementation(project(":feature:settings"))
+    implementation(project(":feature:welcome"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
