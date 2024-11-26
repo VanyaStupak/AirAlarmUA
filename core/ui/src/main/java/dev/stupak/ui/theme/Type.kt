@@ -1,5 +1,6 @@
 package dev.stupak.ui.theme
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -8,6 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import dev.stupak.ui.R
 
+@Immutable
 data class Typography(
 
     val display1: TextStyle,

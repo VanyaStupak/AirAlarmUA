@@ -29,3 +29,5 @@ val Neutral85 = Color(0xFF3E3E3A)
 val Neutral9 = Color(0xFF292927)
 val Neutral95 = Color(0xFF151513)
 val Neutral10 = Color(0xFF000000)
+
+val Warning = Color(0xFFFFD143)

@@ -5,7 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 
+@Immutable
 data class ColorPalette(
     val primary80: Color,
     val primary100: Color,
@@ -29,6 +31,7 @@ data class ColorPalette(
     val neutral9: Color,
     val neutral95: Color,
     val neutral10: Color,
+    val warning: Color
 )
 
 val LightColorPalette =
@@ -54,7 +57,8 @@ val LightColorPalette =
         neutral85 =  Neutral85,
         neutral9 = Neutral9,
         neutral95 =  Neutral95,
-        neutral10 =  Neutral10
+        neutral10 =  Neutral10,
+        warning = Warning
     )
 
 val DarkColorPalette =
@@ -80,7 +84,8 @@ val DarkColorPalette =
         neutral85 = Neutral85,
         neutral9 = Neutral05,
         neutral95 = Neutral95,
-        neutral10 = Neutral10
+        neutral10 = Neutral10,
+        warning = Warning
     )
 
 
@@ -106,4 +111,12 @@ fun AirAlarmUATheme(
     ) {
         content()
     }
+}
+
+object AirAlarmTheme{
+    val colors: ColorPalette
+        @Composable get() = LocalAppTheme.current.colors
+
+    val typography: Typography
+        @Composable get() = LocalAppTheme.current.typography
 }

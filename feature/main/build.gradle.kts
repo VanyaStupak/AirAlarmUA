@@ -42,16 +42,23 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+
 }
 
 dependencies {
 
     implementation(project(":core:ui"))
-    implementation(project(":data:network"))
+    implementation(project(":domain"))
 
     implementation(libs.dagger.hilt.android)
     kapt(libs.com.google.dagger.hilt.compiler)
     kapt(libs.androidx.hilt.compiler)
+
+    implementation ("com.airbnb.android:lottie:6.0.0")
+    implementation("io.coil-kt:coil-compose:2.1.0")
+    implementation("io.coil-kt:coil-svg:2.1.0")
+    implementation(libs.lottie.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)

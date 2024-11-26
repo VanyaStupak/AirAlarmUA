@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.com.google.dagger.hilt.android)
+    kotlin("kapt")
 }
 
 android {
@@ -34,6 +36,14 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":data:repository"))
+    implementation(project(":data:worker"))
+
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.com.google.dagger.hilt.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.work)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

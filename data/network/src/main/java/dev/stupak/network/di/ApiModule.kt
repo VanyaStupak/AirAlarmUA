@@ -5,8 +5,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.stupak.network.BuildConfig
-import dev.stupak.network.impl.AlarmApiServiceImpl
-import dev.stupak.network.service.AlarmApiService
+import dev.stupak.network.impl.AlertsApiServiceImpl
+import dev.stupak.network.impl.TelegramServiceImpl
+import dev.stupak.network.service.AlertsApiService
+import dev.stupak.network.service.TelegramService
 import dev.stupak.network.utils.Util
 import io.ktor.client.HttpClient
 import io.ktor.http.HttpHeaders
@@ -49,6 +51,10 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideApiService(httpClient: HttpClient): AlarmApiService = AlarmApiServiceImpl(httpClient)
+    fun provideApiService(httpClient: HttpClient): AlertsApiService = AlertsApiServiceImpl(httpClient)
+
+    @Singleton
+    @Provides
+    fun provideTelegramService(httpClient: HttpClient): TelegramService = TelegramServiceImpl(httpClient)
 
 }
