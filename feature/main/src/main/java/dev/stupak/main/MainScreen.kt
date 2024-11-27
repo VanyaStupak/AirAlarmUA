@@ -30,15 +30,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import dev.stupak.main.maps.getCherkasyRegionMap
+import dev.stupak.main.maps.getChernigivRegionMap
 import dev.stupak.main.maps.getDnipropetrovskRegionMap
 import dev.stupak.main.maps.getDonetskRegionMap
 import dev.stupak.main.maps.getKharkivRegionMap
 import dev.stupak.main.maps.getKhersonRegionMap
 import dev.stupak.main.maps.getKirovogradRegionMap
+import dev.stupak.main.maps.getKyivRegionMap
 import dev.stupak.main.maps.getOdesaRegionMap
 import dev.stupak.main.maps.getPoltavaRegionMap
+import dev.stupak.main.maps.getSumyRegionMap
 import dev.stupak.main.maps.getUkraineMap
+import dev.stupak.main.maps.getVinnitsyaRegionMap
 import dev.stupak.main.maps.getZaporizhzhiaRegionMap
+import dev.stupak.main.maps.getZhitomyrRegionMap
 import dev.stupak.main.maps.regionsUkraine
 import dev.stupak.main.util.Const
 import dev.stupak.main.viewModel.MainScreenState
@@ -144,7 +150,7 @@ fun MainScreen(viewModel: MainViewModel) {
 
                         1 -> {
                             Image(
-                                imageVector = getOdesaRegionMap(
+                                imageVector = getZhitomyrRegionMap(
                                     districtsSet = filteredLocations,
                                     textColor = AirAlarmTheme.colors.neutral7,
                                     strokeColor = AirAlarmTheme.colors.neutral05,
