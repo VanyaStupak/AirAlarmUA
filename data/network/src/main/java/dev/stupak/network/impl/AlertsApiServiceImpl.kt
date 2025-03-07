@@ -9,34 +9,13 @@ import io.ktor.client.request.get
 import javax.inject.Inject
 
 class AlertsApiServiceImpl @Inject constructor(private val httpClient: HttpClient) : AlertsApiService {
-    override suspend fun getActiveAlerts(): Result<String> {
-        return try {
-            val response = httpClient.get("alerts/active.json?token=${BuildConfig.API_KEY}").body<String>()
-            Result.success(response)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Result.failure(e)
-        }
+
+    override suspend fun getActiveAlertsInfo(): AlertsList {
+        return httpClient.get("alerts/active.json?token=${BuildConfig.API_KEY}").body()
     }
 
-    override suspend fun getActiveAlertsInfo(): Result<AlertsList> {
-        return try {
-            val response = httpClient.get("alerts/active.json?token=${BuildConfig.API_KEY}").body<AlertsList>()
-            Result.success(response)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Result.failure(e)
-        }
-    }
-
-    override suspend fun getAlertsForPeriod(uid: Int, period: String): Result<AlertsList> {
-        return try {
-            val response = httpClient.get("regions/$uid/alerts/$period.json?token=${BuildConfig.API_KEY}").body<AlertsList>()
-            Result.success(response)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Result.failure(e)
-        }
+    override suspend fun getAlertsForPeriod(uid: Int, period: String): AlertsList {
+        return httpClient.get("regions/$uid/alerts/$period.json?token=${BuildConfig.API_KEY}").body()
     }
 }
 

@@ -5,26 +5,24 @@ import androidx.annotation.RequiresApi
 import dev.stupak.domain.model.DomainAlertsList
 import dev.stupak.domain.model.toDomainModel
 import dev.stupak.repository.AlertsRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetActiveAlertsInfoUseCase
-    @Inject
-    constructor(
-        private val alertsRepository: AlertsRepository
-    ) {
-        @RequiresApi(Build.VERSION_CODES.O)
-        suspend operator fun invoke(): Result<DomainAlertsList> {
-            return try {
-                val result = alertsRepository.getActiveAlertsInfo()
-                val data = result.getOrNull()
-                if (data != null) {
-                    Result.success(data.toDomainModel())
-                } else {
-                    Result.failure(IllegalStateException("No data available"))
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Result.failure(e)
+@Inject
+constructor(
+    private val alertsRepository: AlertsRepository
+) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    operator fun invoke(): Flow<Result<DomainAlertsList>> {
+        return alertsRepository.getActiveAlertsInfo()
+            .map { repositoryList ->
+                Result.success(repositoryList.toDomainModel())
             }
-        }
+            .catch { exception ->
+                emit(Result.failure(exception))
+            }
     }
+}

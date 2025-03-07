@@ -19,6 +19,12 @@ android {
             "API_KEY",
             "\"${project.findProperty("API_KEY")}\""
         )
+        buildConfigField(
+            "String",
+            "BOT_TOKEN",
+            "\"${project.findProperty("BOT_TOKEN")}\""
+        )
+
     }
 
     buildTypes {
@@ -50,6 +56,7 @@ dependencies {
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.plugins)
+    implementation(libs.ktor.client.cio)
 
     implementation(libs.kotlinx.serialization.json)
 
@@ -57,10 +64,4 @@ dependencies {
     kapt(libs.com.google.dagger.hilt.compiler)
     kapt(libs.androidx.hilt.compiler)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

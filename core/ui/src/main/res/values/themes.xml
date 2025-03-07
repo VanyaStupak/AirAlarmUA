@@ -2,4 +2,17 @@
 <resources>
 
     <style name="Theme.AirAlarmUA" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.SplashScreen.Light" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_ukraine</item>
+        <item name="postSplashScreenTheme">@style/Theme.AirAlarmUA</item>
+    </style>
+
+    <style name="Theme.SplashScreen.Dark" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/neutral8</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_ukraine</item>
+        <item name="postSplashScreenTheme">@style/Theme.AirAlarmUA</item>
+    </style>
+
 </resources>

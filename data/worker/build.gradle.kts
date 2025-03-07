@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "dev.stupak.worker"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -35,8 +35,10 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":data:repository"))
+    implementation(project(":data:local"))
+    implementation(project(":data:network"))
+    implementation(project(":data:database"))
+    implementation (libs.gson)
 
     implementation(libs.dagger.hilt.android)
     kapt(libs.com.google.dagger.hilt.compiler)

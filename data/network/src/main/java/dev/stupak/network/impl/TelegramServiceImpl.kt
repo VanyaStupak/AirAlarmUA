@@ -1,5 +1,7 @@
 package dev.stupak.network.impl
 
+import android.util.Log
+import dev.stupak.network.BuildConfig
 import dev.stupak.network.service.TelegramService
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -24,18 +26,22 @@ constructor(
         val messages = mutableListOf<String>()
 
         try {
-
             if (lastUpdateId == null) {
-                val initialResponse: HttpResponse = httpClient.get("https://api.telegram.org/bot7689621230:AAGodMHSmMIbzX54E6JBjPPp-fepLXoT_N4/getUpdates")
+                val initialResponse: HttpResponse = httpClient.get("https://api.telegram.org/bot${BuildConfig.BOT_TOKEN}/getUpdates")
                 if (initialResponse.status.value == 200) {
                     val jsonResponse: JsonObject = initialResponse.body()
                     val updates = jsonResponse["result"]?.jsonArray
-                    lastUpdateId = updates?.maxOfOrNull { it.jsonObject["update_id"]?.jsonPrimitive?.longOrNull ?: 0L }
+
+                    if (!updates.isNullOrEmpty()) {
+                        lastUpdateId = updates.maxOfOrNull { it.jsonObject["update_id"]?.jsonPrimitive?.longOrNull ?: 0L }
+                    } else {
+                        lastUpdateId = 0L
+                    }
                 }
                 return emptyList()
             }
 
-            val response: HttpResponse = httpClient.get("https://api.telegram.org/bot7689621230:AAGodMHSmMIbzX54E6JBjPPp-fepLXoT_N4/getUpdates") {
+            val response: HttpResponse = httpClient.get("https://api.telegram.org/bot${BuildConfig.BOT_TOKEN}/getUpdates") {
                 parameter("offset", lastUpdateId?.plus(1))
             }
 
@@ -50,16 +56,16 @@ constructor(
                     if (message != null) {
                         val text = message["text"]?.jsonPrimitive?.content
                         if (text != null) {
-                            messages.add("Повідомлення від користувача: $text")
+                            messages.add(text)
                         }
                     }
-                    // Обновляем lastUpdateId, если текущее значение больше
+
                     if (updateId != null && (lastUpdateId == null || updateId > lastUpdateId!!)) {
                         lastUpdateId = updateId
                     }
                 }
             } else {
-                println("Ошибка: ${response.status}")
+                Log.e("TelegramMessages", "Помилка: ${response.status}")
             }
         } catch (e: Exception) {
             e.printStackTrace()

@@ -9,9 +9,8 @@ import dev.stupak.network.impl.AlertsApiServiceImpl
 import dev.stupak.network.impl.TelegramServiceImpl
 import dev.stupak.network.service.AlertsApiService
 import dev.stupak.network.service.TelegramService
-import dev.stupak.network.utils.Util
+import dev.stupak.network.utils.Const
 import io.ktor.client.HttpClient
-import io.ktor.http.HttpHeaders
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -19,6 +18,7 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
@@ -36,7 +36,7 @@ object ApiModule {
                 level= LogLevel.ALL
             }
             install(DefaultRequest){
-                url(Util.BASE_URL)
+                url(Const.BASE_URL)
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
                 header("X-Api-Key", BuildConfig.API_KEY)
             }

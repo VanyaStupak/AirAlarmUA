@@ -4,10 +4,8 @@ import dev.stupak.network.model.AlertsList
 
 interface AlertsApiService {
 
-    suspend fun getActiveAlerts(): Result<String>
+    suspend fun getActiveAlertsInfo(): AlertsList
 
-    suspend fun getActiveAlertsInfo(): Result<AlertsList>
-
-    suspend fun getAlertsForPeriod(uid:Int = 31,period:String = "month_ago"): Result<AlertsList>
+    suspend fun getAlertsForPeriod(uid :Int = 31,period: String = "month_ago"): AlertsList
 
 }

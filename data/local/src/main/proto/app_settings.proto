@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_package = "com.example.local";
+option java_multiple_files = true;
+
+message AppSettings {
+  bool notifications = 1;
+  bool alerts_notifications = 2;
+  bool telegram_notifications = 3;
+  Theme theme = 4;
+
+  enum Theme{
+    AUTO = 0;
+    LIGHT = 1;
+    DARK = 2;
+  }
+
+  string region = 5;
+}

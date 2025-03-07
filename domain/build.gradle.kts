@@ -38,17 +38,16 @@ android {
 dependencies {
 
     implementation(project(":data:repository"))
-    implementation(project(":data:worker"))
-
     implementation(libs.dagger.hilt.android)
     kapt(libs.com.google.dagger.hilt.compiler)
     kapt(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.work)
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
+    testImplementation(libs.kotlinx.coroutines.test)
     implementation(libs.material)
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
 }

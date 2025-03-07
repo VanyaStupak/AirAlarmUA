@@ -37,14 +37,11 @@ android {
 dependencies {
 
     implementation(project(":data:network"))
+    implementation(project(":data:local"))
+    implementation(project(":data:database"))
     implementation(libs.dagger.hilt.android)
     kapt(libs.com.google.dagger.hilt.compiler)
     kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.datastore)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

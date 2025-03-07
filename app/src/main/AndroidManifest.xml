@@ -4,7 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -14,19 +16,50 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AirAlarmUA"
+        android:theme="@style/Theme.SplashScreen.Light"
         tools:targetApi="31">
+
+        <service
+            android:name="com.example.settings.ForegroundNetworkService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
         <activity
-            android:name="dev.stupak.main.MainActivity"
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AirAlarmUA">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SplashScreen.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="myapp" android:host="main" />
+            </intent-filter>
         </activity>
+
+        <receiver
+            android:name="com.example.widget.MyGlanceWidgetReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+
+        <provider
+            android:authorities="${applicationId}.androidx-startup"
+            android:name="androidx.startup.InitializationProvider"
+            tools:node="remove" />
+
     </application>
 
 </manifest>
