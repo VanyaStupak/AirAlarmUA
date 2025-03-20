@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":data:repository"))
+    implementation(project(":presentation:core:platform"))
     implementation(libs.work.runtime.ktx)
     implementation (libs.gson)
     implementation (libs.androidx.glance.appwidget)

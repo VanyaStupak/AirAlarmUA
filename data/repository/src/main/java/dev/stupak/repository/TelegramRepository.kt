@@ -7,4 +7,9 @@ interface TelegramRepository {
 
     suspend fun getTgAlerts(): Flow<List<TelegramRepositoryModel>>
 
+    suspend fun getTgAlertsFromNet(): List<TelegramRepositoryModel>
+
+    suspend fun insertTelegramMessages(messages: List<TelegramRepositoryModel>)
+
+    suspend fun deleteTelegramMessages()
 }

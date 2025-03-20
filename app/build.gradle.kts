@@ -2,9 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.com.google.dagger.hilt.android)
-    alias(libs.plugins.compose.compiler)
     kotlin("kapt")
-
 }
 
 android {
@@ -39,13 +37,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -60,23 +51,16 @@ dependencies {
     implementation(project(":presentation:feature:welcome"))
     implementation(project(":presentation:feature:settings"))
     implementation(project(":presentation:feature:widget"))
-    implementation(project(":data:repository"))
-    implementation(project(":data:worker"))
+    implementation(project(":presentation:feature:host"))
+    implementation(project(":presentation:core:worker"))
+    implementation(project(":data:local:impl"))
+    implementation(project(":data:network:impl"))
+    implementation(project(":data:repository:impl"))
+    implementation(project(":data:database:impl"))
 
     implementation(libs.dagger.hilt.android)
     kapt(libs.com.google.dagger.hilt.compiler)
     kapt(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.work)
     implementation(libs.work.runtime.ktx)
-
-    implementation(libs.androidx.core.splashscreen)
-    implementation (libs.androidx.navigation.compose)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
 }

@@ -4,8 +4,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.protobuf)
-    alias(libs.plugins.com.google.dagger.hilt.android)
-    kotlin("kapt")
 }
 
 android {
@@ -56,11 +54,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.dagger.hilt.android)
-    kapt(libs.com.google.dagger.hilt.compiler)
-    kapt(libs.androidx.hilt.compiler)
     implementation(libs.androidx.datastore)
     implementation(libs.protobuf.javalite)
     implementation(libs.protobuf.kotlin.lite)
-
 }

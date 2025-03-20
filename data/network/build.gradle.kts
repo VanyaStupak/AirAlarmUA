@@ -2,8 +2,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.com.google.dagger.hilt.android)
-    kotlin("kapt")
 }
 
 android {
@@ -49,19 +47,5 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.android)
-    implementation(libs.ktor.serialization.json)
-    implementation(libs.ktor.client.logging)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.client.plugins)
-    implementation(libs.ktor.client.cio)
-
     implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.dagger.hilt.android)
-    kapt(libs.com.google.dagger.hilt.compiler)
-    kapt(libs.androidx.hilt.compiler)
-
 }

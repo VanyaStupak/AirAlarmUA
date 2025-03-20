@@ -25,4 +25,5 @@ object DomainModule {
     ): GetAppSettingsUseCase {
         return GetAppSettingsUseCase(repository)
     }
+
 }

@@ -5,7 +5,7 @@ import android.net.NetworkCapabilities
 import androidx.glance.appwidget.updateAll
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.common.ConnectivityObserver
+import com.example.platform.ConnectivityObserver
 
 class WidgetUpdateWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {

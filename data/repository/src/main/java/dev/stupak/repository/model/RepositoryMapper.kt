@@ -1,10 +1,10 @@
 package dev.stupak.repository.model
 
-import com.example.database.model.AlertEntity
-import com.example.database.model.TgMessageEntity
+import com.example.database.core.model.AlertDatabaseModel
+import com.example.database.core.model.TelegramDatabaseModel
 import com.example.local.model.SettingsDataStoreModel
 import dev.stupak.network.model.AlertsList
-
+import dev.stupak.repository.TelegramRepository
 
 fun AlertsList.toRepositoryModel(): RepositoryAlertsList {
     return RepositoryAlertsList(
@@ -28,15 +28,55 @@ fun AlertsList.toRepositoryModel(): RepositoryAlertsList {
         }
     )
 }
+fun String.toTgRepositoryModel(): TelegramRepositoryModel {
+    return TelegramRepositoryModel(message = this)
+}
+
+fun List<String>.toTelegramRepositoryModel(): List<TelegramRepositoryModel> {
+    return this.map { it.toTgRepositoryModel()}
+}
+fun RepositoryAlertsList.toAlertEntityList(): List<AlertDatabaseModel> {
+    return alerts.map { alert ->
+        AlertDatabaseModel(
+            id = alert.id,
+            locationTitle = alert.locationTitle,
+            locationType = alert.locationType,
+            startedAt = alert.startedAt,
+            finishedAt = alert.finishedAt,
+            updatedAt = alert.updatedAt,
+            alertType = alert.alertType,
+            locationUid = alert.locationUid,
+            locationOblast = alert.locationOblast,
+            locationOblastUid = alert.locationOblastUid,
+            locationRaion = alert.locationRaion,
+            notes = alert.notes,
+            calculated = alert.calculated,
+            country = alert.country,
+        )
+    }
+}
 
 
-fun TgMessageEntity.toTelegramRepositoryModel(): TelegramRepositoryModel {
+
+
+fun TelegramDatabaseModel.toTelegramRepositoryModel(): TelegramRepositoryModel {
     return TelegramRepositoryModel(
         message = this.message
     )
 }
+fun List<TelegramRepositoryModel>.toTelegramDatabaseModelList(): List<TelegramDatabaseModel> {
+    return map { it.toTelegramDatabaseModel() }
+}
 
-fun List<AlertEntity>.toRepositoryList(): RepositoryAlertsList {
+
+fun TelegramRepositoryModel.toTelegramDatabaseModel(): TelegramDatabaseModel {
+    return TelegramDatabaseModel(
+        message = this.message
+    )
+}
+
+
+fun List<AlertDatabaseModel>.toRepositoryList(): RepositoryAlertsList {
     return RepositoryAlertsList(
         alerts = this.map { entity ->
             AlertsRepositoryModel(

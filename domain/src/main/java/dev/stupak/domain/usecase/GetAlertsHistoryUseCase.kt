@@ -15,7 +15,7 @@ class GetAlertsHistoryUseCase
     ) {
         @RequiresApi(Build.VERSION_CODES.O)
         suspend operator fun invoke(uid: Int, period: String): Result<DomainAlertsList> {
-            return ResultWrapper.wrap {
+            return runCatching {
                 alertsRepository.getAlertsForPeriod(uid, period).toDomainModel()
             }
         }

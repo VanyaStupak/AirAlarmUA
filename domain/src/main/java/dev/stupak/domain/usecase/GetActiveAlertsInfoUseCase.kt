@@ -16,7 +16,7 @@ constructor(
     private val alertsRepository: AlertsRepository
 ) {
     @RequiresApi(Build.VERSION_CODES.O)
-    operator fun invoke(): Flow<Result<DomainAlertsList>> {
+    suspend operator fun invoke(): Flow<Result<DomainAlertsList>> {
         return alertsRepository.getActiveAlertsInfo()
             .map { repositoryList ->
                 Result.success(repositoryList.toDomainModel())

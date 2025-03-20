@@ -1,5 +1,6 @@
 package dev.stupak.domain.model
 
+import dev.stupak.repository.model.AlertsRepositoryModel
 import dev.stupak.repository.model.RepositoryAlertsList
 import dev.stupak.repository.model.SettingsRepositoryModel
 
@@ -26,6 +27,31 @@ fun RepositoryAlertsList.toDomainModel(): DomainAlertsList {
         }
     )
 }
+
+fun DomainAlertsList.toRepositoryAlertsList(): RepositoryAlertsList {
+    return RepositoryAlertsList(
+        alerts = alerts.map { alert ->
+            AlertsRepositoryModel(
+                id = alert.id,
+                locationTitle = alert.locationTitle,
+                locationType = alert.locationType,
+                startedAt = alert.startedAt,
+                finishedAt = alert.finishedAt,
+                updatedAt = alert.updatedAt,
+                alertType = alert.alertType,
+                locationUid = alert.locationUid,
+                locationOblast = alert.locationOblast,
+                locationOblastUid = alert.locationOblastUid,
+                locationRaion = alert.locationRaion,
+                notes = alert.notes,
+                calculated = alert.calculated,
+                country = alert.country,
+            )
+        }
+    )
+}
+
+
 
 fun SettingsRepositoryModel.toDomainModel(): SettingsDomainModel{
     return SettingsDomainModel(

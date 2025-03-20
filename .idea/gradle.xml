@@ -11,26 +11,36 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/build-logic" />
+            <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/common" />
+            <option value="$PROJECT_DIR$/core/exception" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/database" />
+            <option value="$PROJECT_DIR$/data/database/impl" />
             <option value="$PROJECT_DIR$/data/local" />
+            <option value="$PROJECT_DIR$/data/local/impl" />
             <option value="$PROJECT_DIR$/data/network" />
+            <option value="$PROJECT_DIR$/data/network/impl" />
             <option value="$PROJECT_DIR$/data/repository" />
+            <option value="$PROJECT_DIR$/data/repository/impl" />
             <option value="$PROJECT_DIR$/data/worker" />
             <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/presentation" />
+            <option value="$PROJECT_DIR$/presentation/core" />
+            <option value="$PROJECT_DIR$/presentation/core/navigation" />
+            <option value="$PROJECT_DIR$/presentation/core/platform" />
+            <option value="$PROJECT_DIR$/presentation/core/worker" />
             <option value="$PROJECT_DIR$/presentation/feature" />
+            <option value="$PROJECT_DIR$/presentation/feature/host" />
             <option value="$PROJECT_DIR$/presentation/feature/main" />
             <option value="$PROJECT_DIR$/presentation/feature/settings" />
             <option value="$PROJECT_DIR$/presentation/feature/welcome" />
             <option value="$PROJECT_DIR$/presentation/feature/widget" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

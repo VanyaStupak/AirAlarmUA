@@ -15,7 +15,7 @@ class GetAppSettingsUseCase
     ) {
         @RequiresApi(Build.VERSION_CODES.O)
         suspend operator fun invoke(): Result<SettingsDomainModel> {
-            return ResultWrapper.wrap {
+            return runCatching {
                  settingsRepository.getSettings().toDomainModel()
             }
         }

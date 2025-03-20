@@ -49,7 +49,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:common"))
     implementation(project(":domain"))
-    implementation(project(":data:worker"))
+    implementation(project(":presentation:core:platform"))
     implementation (libs.androidx.navigation.compose)
 
     implementation(libs.androidx.hilt.navigation.compose)

@@ -16,12 +16,15 @@ ktor = "3.0.3"
 kotlinx-serialization = "1.8.0"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
-composeBom = "2025.02.00"
+composeBom = "2025.03.00"
 appcompat = "1.7.0"
 lottieCompose = "6.6.0"
 material = "1.12.0"
 mockk = "1.13.5"
-navigationCompose = "2.8.8"
+android-gradle-plugin = "8.8.1"
+gradle-versions-plugin = "0.51.0"
+android-tools = "31.9.0"
+navigationCompose = "2.8.9"
 protobufJavalite = "3.21.12"
 protobufKotlinLite = "3.21.11"
 protobufPlugin = "0.9.4"
@@ -33,6 +36,7 @@ com-google-dagger-hilt-compiler = "2.55"
 androidx-hilt-compiler = "1.2.0"
 androidx-hilt-work = "1.2.0"
 androidx-work-runtime-ktx = "2.10.0"
+ktlint = "12.2.0"
 
 
 [libraries]
@@ -79,6 +83,10 @@ dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", vers
 com-google-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "com-google-dagger-hilt-compiler" }
 androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "androidx-hilt-compiler" }
 androidx-hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "androidx-hilt-work" }
+android-tools-common = { module = "com.android.tools:common", version.ref = "android-tools" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+gradle-versions-plugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradle-versions-plugin" }
+ktlint-gradle = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlint" }
 
 [plugins]
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
@@ -89,3 +97,5 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android",version.ref = "dagger-hilt" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+conventions-android-application = { id = "conventions.android-application", version = "unspecified" }
+conventions-ktlint = { id = "android.ktlint", version = "unspecified" }
