@@ -1,7 +1,7 @@
 package com.example.settings.model
 
 import com.example.settings.SettingsState
-import dev.stupak.domain.model.SettingsDomainModel
+import com.example.usecase.model.SettingsDomainModel
 
 fun SettingsDomainModel.toUiModel(): SettingsState {
     return SettingsState(

@@ -48,7 +48,7 @@ dependencies {
     implementation(project(":presentation:feature:widget"))
     implementation(project(":presentation:core:navigation"))
     implementation(project(":presentation:core:worker"))
-    implementation(project(":domain"))
+    implementation(project(":domain:usecase"))
     implementation(project(":core:ui"))
 
     implementation(libs.androidx.core.splashscreen)

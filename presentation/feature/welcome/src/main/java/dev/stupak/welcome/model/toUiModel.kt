@@ -1,11 +1,11 @@
 package dev.stupak.welcome.model
 
-import dev.stupak.domain.model.SettingsDomainModel
+import com.example.usecase.model.SettingsDomainModel
 import dev.stupak.welcome.WelcomeState
 
 
 
-fun WelcomeState.toDomainModel(): SettingsDomainModel{
+fun WelcomeState.toDomainModel(): SettingsDomainModel {
     return SettingsDomainModel(
         notifications = notifications,
         alertsNotifications = alertsNotifications,

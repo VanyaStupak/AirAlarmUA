@@ -57,6 +57,7 @@ dependencies {
     implementation(project(":data:network:impl"))
     implementation(project(":data:repository:impl"))
     implementation(project(":data:database:impl"))
+    implementation(project(":domain:usecase:impl"))
 
     implementation(libs.dagger.hilt.android)
     kapt(libs.com.google.dagger.hilt.compiler)

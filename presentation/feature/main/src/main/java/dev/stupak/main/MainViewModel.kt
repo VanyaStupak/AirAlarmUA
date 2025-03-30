@@ -7,12 +7,12 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.platform.ConnectivityObserver
+import com.example.usecase.model.DomainAlertsList
+import com.example.usecase.usecase.GetActiveAlertsInfoUseCase
+import com.example.usecase.usecase.GetAlertsHistoryUseCase
+import com.example.usecase.usecase.GetAppSettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dev.stupak.domain.model.DomainAlertsList
-import dev.stupak.domain.usecase.GetActiveAlertsInfoUseCase
-import dev.stupak.domain.usecase.GetAlertsHistoryUseCase
-import dev.stupak.domain.usecase.GetAppSettingsUseCase
 import dev.stupak.main.common.getRegionUid
 import dev.stupak.main.model.toUiModel
 import kotlinx.coroutines.delay

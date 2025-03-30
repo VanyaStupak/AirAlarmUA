@@ -48,7 +48,7 @@ dependencies {
 
     implementation(project(":core:ui"))
     implementation(project(":core:common"))
-    implementation(project(":domain"))
+    implementation(project(":domain:usecase"))
     implementation(project(":presentation:core:platform"))
     implementation (libs.androidx.navigation.compose)
 

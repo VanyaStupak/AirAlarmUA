@@ -57,7 +57,7 @@ android {
 
 dependencies {
 
-    implementation(project(":domain"))
+    implementation(project(":domain:usecase"))
     implementation(project(":core:ui"))
 
     implementation(libs.androidx.hilt.navigation.compose)

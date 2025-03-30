@@ -1,6 +1,6 @@
 package dev.stupak.main.model
 
-import dev.stupak.domain.model.DomainAlertsList
+import com.example.usecase.model.DomainAlertsList
 
 fun DomainAlertsList.toUiModel(): UiAlertsList {
     return UiAlertsList(

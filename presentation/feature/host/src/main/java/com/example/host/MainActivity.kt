@@ -21,12 +21,12 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.example.navigation.NavHost
 import com.example.settings.ForegroundNetworkService
+import com.example.usecase.model.SettingsDomainModel
+import com.example.usecase.usecase.GetAppSettingsUseCase
+import com.example.usecase.usecase.UpdateAppSettingsUseCase
 import com.example.widget.WidgetUpdateWorker
 import com.example.worker.AlertsWorker
 import dagger.hilt.android.AndroidEntryPoint
-import dev.stupak.domain.model.SettingsDomainModel
-import dev.stupak.domain.usecase.GetAppSettingsUseCase
-import dev.stupak.domain.usecase.UpdateAppSettingsUseCase
 import dev.stupak.ui.theme.AirAlarmUATheme
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit

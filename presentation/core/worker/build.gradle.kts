@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(":domain:usecase"))
     implementation(project(":data:network"))
     implementation (libs.gson)
     implementation(libs.dagger.hilt.android)

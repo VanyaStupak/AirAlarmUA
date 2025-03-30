@@ -11,10 +11,10 @@ import android.net.Uri
 import android.os.IBinder
 import android.util.Log
 import com.example.settings.common.regionKeywords
+import com.example.usecase.usecase.GetActiveAlertsInfoUseCase
+import com.example.usecase.usecase.GetAppSettingsUseCase
+import com.example.usecase.usecase.GetTelegramMessagesUseCase
 import dagger.hilt.android.AndroidEntryPoint
-import dev.stupak.domain.usecase.GetActiveAlertsInfoUseCase
-import dev.stupak.domain.usecase.GetAppSettingsUseCase
-import dev.stupak.domain.usecase.GetTelegramMessagesUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

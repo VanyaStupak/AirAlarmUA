@@ -3,26 +3,21 @@ package com.example.worker
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.example.usecase.model.DomainAlertsList
+import com.example.usecase.usecase.DeleteActiveAlertsInfoUseCase
+import com.example.usecase.usecase.DeleteTelegramMessagesUseCase
+import com.example.usecase.usecase.GetActiveAlertsInfoFromNetUseCase
+import com.example.usecase.usecase.GetAppSettingsUseCase
+import com.example.usecase.usecase.GetTelegramMessagesFromNetUseCase
+import com.example.usecase.usecase.InsertActiveAlertsInfoUseCase
+import com.example.usecase.usecase.InsertTelegramMessagesUseCase
 import com.google.gson.Gson
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import dev.stupak.domain.model.DomainAlertsList
-import dev.stupak.domain.usecase.DeleteActiveAlertsInfoUseCase
-import dev.stupak.domain.usecase.DeleteTelegramMessagesUseCase
-import dev.stupak.domain.usecase.GetActiveAlertsInfoFromNetUseCase
-import dev.stupak.domain.usecase.GetActiveAlertsInfoUseCase
-import dev.stupak.domain.usecase.GetAppSettingsUseCase
-import dev.stupak.domain.usecase.GetTelegramMessagesFromNetUseCase
-import dev.stupak.domain.usecase.GetTelegramMessagesUseCase
-import dev.stupak.domain.usecase.InsertActiveAlertsInfoUseCase
-import dev.stupak.domain.usecase.InsertTelegramMessagesUseCase
-import kotlinx.coroutines.flow.first
-import kotlin.math.log
 
 @HiltWorker
 class AlertsWorker @AssistedInject constructor(

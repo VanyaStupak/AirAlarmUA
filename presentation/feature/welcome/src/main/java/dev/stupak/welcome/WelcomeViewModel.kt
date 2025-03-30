@@ -6,10 +6,10 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.usecase.usecase.GetAppSettingsUseCase
+import com.example.usecase.usecase.UpdateAppSettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dev.stupak.domain.usecase.GetAppSettingsUseCase
-import dev.stupak.domain.usecase.UpdateAppSettingsUseCase
 import dev.stupak.welcome.model.toDomainModel
 import dev.stupak.welcome.model.toWelcomeState
 import kotlinx.coroutines.flow.MutableStateFlow

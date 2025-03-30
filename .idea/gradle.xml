@@ -28,6 +28,8 @@
             <option value="$PROJECT_DIR$/data/repository/impl" />
             <option value="$PROJECT_DIR$/data/worker" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/domain/usecase" />
+            <option value="$PROJECT_DIR$/domain/usecase/impl" />
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/presentation/core" />
             <option value="$PROJECT_DIR$/presentation/core/navigation" />

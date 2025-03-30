@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(":domain:usecase"))
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":data:repository"))

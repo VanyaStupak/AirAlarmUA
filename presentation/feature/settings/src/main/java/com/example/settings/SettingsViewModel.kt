@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.settings.model.toDomainModel
 import com.example.settings.model.toUiModel
+import com.example.usecase.usecase.GetAppSettingsUseCase
+import com.example.usecase.usecase.UpdateAppSettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dev.stupak.domain.usecase.GetAppSettingsUseCase
-import dev.stupak.domain.usecase.UpdateAppSettingsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
