@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -17,6 +18,10 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://jitpack.io")
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+        gradlePluginPortal()
     }
 }
 
@@ -42,7 +47,6 @@ include(":presentation:feature:host")
 include(":presentation:core:navigation")
 include(":presentation:core:platform")
 include(":presentation:core:worker")
-include(":build-logic:convention")
 include(":data:local:impl")
 include(":data:network:impl")
 include(":data:repository:impl")

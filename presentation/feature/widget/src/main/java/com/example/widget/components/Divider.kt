@@ -12,9 +12,10 @@ import androidx.glance.unit.ColorProvider
 @Composable
 fun Divider(color: ColorProvider) {
     Spacer(
-        modifier = GlanceModifier
-            .fillMaxHeight()
-            .width(1.dp)
-            .background(color)
+        modifier =
+            GlanceModifier
+                .fillMaxHeight()
+                .width(1.dp)
+                .background(color),
     )
 }

@@ -9,15 +9,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 
 @Composable
-fun MapImage(
-    imageVector: ImageVector,
-) {
+fun MapImage(imageVector: ImageVector) {
     Image(
         imageVector = imageVector,
         contentDescription = "Map",
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1.3f),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .aspectRatio(1.3f),
         contentScale = ContentScale.Fit,
     )
 }

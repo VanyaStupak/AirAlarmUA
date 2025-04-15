@@ -1,7 +1,5 @@
 package dev.stupak.main.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,18 +16,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.common.parseDate
+import dev.stupak.common.parseDate
 import dev.stupak.main.model.AlertsUiModel
 import dev.stupak.ui.theme.LocalAppTheme
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AlertsList(
     alerts: List<AlertsUiModel>,
     modifier: Modifier = Modifier,
-    listState: LazyListState
+    listState: LazyListState,
 ) {
-
     val colors = LocalAppTheme.current.colors
     val typography = LocalAppTheme.current.typography
 
@@ -37,32 +33,35 @@ fun AlertsList(
 
     if (sortedAlerts.isEmpty()) {
         Box(
-            modifier = Modifier
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .fillMaxSize(),
+            contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = stringResource(dev.stupak.ui.R.string.no_alerts_now),
                 style = typography.textMediumNormal,
-                color = colors.neutral9
+                color = colors.neutral9,
             )
         }
     } else {
-            LazyColumn(
-                modifier = modifier
+        LazyColumn(
+            modifier =
+                modifier
                     .fillMaxSize(),
-                contentPadding = PaddingValues(
-                    bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+            contentPadding =
+                PaddingValues(
+                    bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
                 ),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                state = listState
-            ) {
-                itemsIndexed(
-                    items = sortedAlerts,
-                    key = { _, alert -> alert.id }
-                ) { _, alert ->
-                    AlertItem(alert = alert)
-                }
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            state = listState,
+        ) {
+            itemsIndexed(
+                items = sortedAlerts,
+                key = { _, alert -> alert.id },
+            ) { _, alert ->
+                AlertItem(alert = alert)
             }
         }
+    }
 }

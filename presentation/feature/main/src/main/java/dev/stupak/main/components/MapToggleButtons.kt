@@ -22,24 +22,23 @@ fun MapToggleButtons(
     val colors = LocalAppTheme.current.colors
 
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(32.dp))
-            .background(colors.toggle)
-            .padding(8.dp),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(32.dp))
+                .background(colors.toggle)
+                .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ToggleButtons(
             isSelected = selectedMap == "Ukraine",
-            text = stringResource( dev.stupak.ui.R.string.ukraine),
-            onClick = { onMapChange("Ukraine") }
+            text = stringResource(dev.stupak.ui.R.string.ukraine),
+            onClick = { onMapChange("Ukraine") },
         )
 
         ToggleButtons(
             isSelected = selectedMap == "Oblast",
             text = oblast,
-            onClick = { onMapChange("Oblast") }
+            onClick = { onMapChange("Oblast") },
         )
-
     }
 }
-

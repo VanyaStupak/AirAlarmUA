@@ -24,32 +24,30 @@ import dev.stupak.ui.theme.LocalAppTheme
 
 @Composable
 fun TopBar(onBackClick: () -> Unit) {
-
     val colors = LocalAppTheme.current.colors
     val typography = LocalAppTheme.current.typography
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
-            .padding(12.dp),
-                verticalAlignment = Alignment.CenterVertically
-
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(360.dp))
-                .background(colors.neutral4)
-                .clickable {
-                    onBackClick()
-                }
-                .padding(vertical = 8.dp, horizontal = 16.dp)
-
+            modifier =
+                Modifier
+                    .clip(RoundedCornerShape(360.dp))
+                    .background(colors.neutral4)
+                    .clickable {
+                        onBackClick()
+                    }.padding(vertical = 8.dp, horizontal = 16.dp),
         ) {
             Icon(
                 imageVector = ImageVector.vectorResource(dev.stupak.ui.R.drawable.ic_arrow_back),
                 contentDescription = "Icon",
-                tint = colors.neutral9
+                tint = colors.neutral9,
             )
         }
         Text(
@@ -57,10 +55,9 @@ fun TopBar(onBackClick: () -> Unit) {
             text = "Settings",
             style = typography.heading5,
             color = colors.neutral9,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.width(56.dp))
-
     }
 }

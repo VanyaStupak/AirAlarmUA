@@ -54,14 +54,10 @@ import dev.stupak.ui.theme.LocalAppTheme
 fun SettingsScreen(
     onBackClick: () -> Unit,
     onChangeRegionClick: () -> Unit,
-    region: String,
+    uiState: SettingsState,
     onThemeUpdated: (Boolean) -> Unit,
-    alertNotifications: Boolean,
-    telegramNotifications: Boolean,
-    theme: SettingsState.Theme,
     onAction: (SettingsIntent) -> Unit,
 ) {
-
     val colors = LocalAppTheme.current.colors
     val typography = LocalAppTheme.current.typography
 
@@ -70,34 +66,36 @@ fun SettingsScreen(
     var isSwitchChecked by remember { mutableStateOf(false) }
     val isSystemInDarkTheme = isSystemInDarkTheme()
 
-    fun isNotificationPermissionGranted(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    fun isNotificationPermissionGranted(): Boolean =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) ==
-                    android.content.pm.PackageManager.PERMISSION_GRANTED
+                android.content.pm.PackageManager.PERMISSION_GRANTED
         } else {
             NotificationManagerCompat.from(context).areNotificationsEnabled()
         }
-    }
 
-    val permissionLauncher = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-            if (granted) isSwitchChecked = true else isSwitchChecked = false
+    val permissionLauncher =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+                if (granted) isSwitchChecked = true else isSwitchChecked = false
+            }
+        } else {
+            null
         }
-    } else null
 
     LaunchedEffect(Unit) {
         isSwitchChecked = isNotificationPermissionGranted()
     }
 
-
     var expanded by remember { mutableStateOf(false) }
     val options = listOf("Автоматично", "Світла", "Темна")
 
-    val selectedTheme = when (theme) {
-        SettingsState.Theme.AUTO -> options[0]
-        SettingsState.Theme.LIGHT -> options[1]
-        SettingsState.Theme.DARK -> options[2]
-    }
+    val selectedTheme =
+        when (uiState.theme) {
+            SettingsState.Theme.AUTO -> options[0]
+            SettingsState.Theme.LIGHT -> options[1]
+            SettingsState.Theme.DARK -> options[2]
+        }
 
     Scaffold(
         containerColor = colors.neutral2,
@@ -106,30 +104,31 @@ fun SettingsScreen(
         },
         content = { paddingValues ->
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 24.dp, start = 12.dp, end = 12.dp)
-                    .padding(paddingValues),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(top = 24.dp, start = 12.dp, end = 12.dp)
+                        .padding(paddingValues),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(colors.primary100, RoundedCornerShape(32.dp))
-                        .padding(top = 32.dp, bottom = 24.dp, start = 32.dp, end = 32.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(colors.primary100, RoundedCornerShape(32.dp))
+                            .padding(top = 32.dp, bottom = 24.dp, start = 32.dp, end = 32.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-
                     Text(
                         text = stringResource(R.string.notifications),
                         style = typography.heading4,
-                        color = colors.white
+                        color = colors.white,
                     )
 
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_notifications),
                         title = stringResource(R.string.allow_notifications),
-                        contentColor = colors.white
+                        contentColor = colors.white,
                     ) {
                         Switch(
                             checked = isSwitchChecked,
@@ -138,158 +137,168 @@ fun SettingsScreen(
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                                         permissionLauncher?.launch(Manifest.permission.POST_NOTIFICATIONS)
                                     } else {
-                                        isSwitchChecked = NotificationManagerCompat.from(context)
-                                            .areNotificationsEnabled()
+                                        isSwitchChecked =
+                                            NotificationManagerCompat
+                                                .from(context)
+                                                .areNotificationsEnabled()
                                     }
                                 }
                             },
                             enabled = !isSwitchChecked,
-                            colors = SwitchDefaults.colors(
-                                checkedThumbColor = colors.neutral05,
-                                checkedTrackColor = colors.primary120,
-                                checkedBorderColor = Color.Transparent,
-                                uncheckedThumbColor = colors.white,
-                                uncheckedTrackColor = colors.neutral7,
-                                uncheckedBorderColor = Color.Transparent,
-                                disabledCheckedTrackColor = colors.primary120,
-                                disabledCheckedThumbColor = colors.primary80
-                            )
+                            colors =
+                                SwitchDefaults.colors(
+                                    checkedThumbColor = colors.neutral05,
+                                    checkedTrackColor = colors.primary120,
+                                    checkedBorderColor = Color.Transparent,
+                                    uncheckedThumbColor = colors.white,
+                                    uncheckedTrackColor = colors.neutral7,
+                                    uncheckedBorderColor = Color.Transparent,
+                                    disabledCheckedTrackColor = colors.primary120,
+                                    disabledCheckedThumbColor = colors.primary80,
+                                ),
                         )
                     }
 
                     HorizontalDivider(
                         thickness = 1.dp,
-                        color = colors.white
+                        color = colors.white,
                     )
 
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_alert),
                         title = stringResource(R.string.alarm_notifications),
-                        contentColor = colors.white
+                        contentColor = colors.white,
                     ) {
                         Switch(
-                            checked = alertNotifications,
+                            checked = uiState.alertsNotifications,
                             onCheckedChange = {
                                 onAction.invoke(SettingsIntent.ToggleAlertsNotifications)
                             },
-                            colors = SwitchDefaults.colors(
-                                checkedThumbColor = colors.white,
-                                checkedTrackColor = colors.primary120,
-                                checkedBorderColor = Color.Transparent,
-                                uncheckedThumbColor = colors.white,
-                                uncheckedTrackColor = colors.switchTrack,
-                                uncheckedBorderColor = Color.Transparent,
-                            )
-                        )
-                    }
-
-                    if (alertNotifications) {
-                        SettingsItem(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_telegram),
-                            title = stringResource(R.string.telegram_notifications),
-                            contentColor = colors.white
-                        ) {
-                            Switch(
-                                checked = telegramNotifications,
-                                onCheckedChange = {
-                                    onAction.invoke(SettingsIntent.ToggleTelegramNotifications)
-                                },
-                                colors = SwitchDefaults.colors(
+                            colors =
+                                SwitchDefaults.colors(
                                     checkedThumbColor = colors.white,
                                     checkedTrackColor = colors.primary120,
                                     checkedBorderColor = Color.Transparent,
                                     uncheckedThumbColor = colors.white,
                                     uncheckedTrackColor = colors.switchTrack,
                                     uncheckedBorderColor = Color.Transparent,
-                                )
+                                ),
+                        )
+                    }
+
+                    if (uiState.alertsNotifications) {
+                        SettingsItem(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_telegram),
+                            title = stringResource(R.string.telegram_notifications),
+                            contentColor = colors.white,
+                        ) {
+                            Switch(
+                                checked = uiState.telegramNotifications,
+                                onCheckedChange = {
+                                    onAction.invoke(SettingsIntent.ToggleTelegramNotifications)
+                                },
+                                colors =
+                                    SwitchDefaults.colors(
+                                        checkedThumbColor = colors.white,
+                                        checkedTrackColor = colors.primary120,
+                                        checkedBorderColor = Color.Transparent,
+                                        uncheckedThumbColor = colors.white,
+                                        uncheckedTrackColor = colors.switchTrack,
+                                        uncheckedBorderColor = Color.Transparent,
+                                    ),
                             )
                         }
                     }
-
                 }
 
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(colors.neutral4, RoundedCornerShape(32.dp))
-                        .padding(top = 32.dp, bottom = 24.dp, start = 24.dp, end = 32.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(colors.neutral4, RoundedCornerShape(32.dp))
+                            .padding(top = 32.dp, bottom = 24.dp, start = 24.dp, end = 32.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-
                     Box(
-                        modifier = Modifier
-                            .background(colors.neutral2, RoundedCornerShape(16.dp))
-                            .padding(vertical = 8.dp, horizontal = 12.dp)
-
+                        modifier =
+                            Modifier
+                                .background(colors.neutral2, RoundedCornerShape(16.dp))
+                                .padding(vertical = 8.dp, horizontal = 12.dp),
                     ) {
                         Text(
-                            text = region,
+                            text = uiState.region,
                             style = typography.textLargeNormal,
-                            color = colors.neutral9
+                            color = colors.neutral9,
                         )
                     }
 
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_pin_area),
                         title = stringResource(R.string.change_region),
-                        modifier = Modifier
-                            .padding(start = 8.dp)
-                            .clickable(
-                                indication = null,
-                                interactionSource = remember { MutableInteractionSource() }
-                            ) { onChangeRegionClick() },
-                        contentColor = colors.neutral9
+                        modifier =
+                            Modifier
+                                .padding(start = 8.dp)
+                                .clickable(
+                                    indication = null,
+                                    interactionSource = remember { MutableInteractionSource() },
+                                ) { onChangeRegionClick() },
+                        contentColor = colors.neutral9,
                     ) {
                         Box(
-                            modifier = Modifier
-                                .padding(vertical = 8.dp, horizontal = 16.dp)
+                            modifier =
+                                Modifier
+                                    .padding(vertical = 8.dp, horizontal = 16.dp),
                         ) {
                             Icon(
                                 imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_next),
                                 contentDescription = "Icon",
-                                tint = colors.neutral9
+                                tint = colors.neutral9,
                             )
                         }
                     }
                 }
 
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(colors.secondary100, RoundedCornerShape(32.dp))
-                        .padding(top = 24.dp, bottom = 24.dp, start = 32.dp, end = 32.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(colors.secondary100, RoundedCornerShape(32.dp))
+                            .padding(top = 24.dp, bottom = 24.dp, start = 32.dp, end = 32.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_day_night),
                         title = stringResource(R.string.theme),
-                        contentColor = colors.neutral9
+                        contentColor = colors.neutral9,
                     ) {
                         Box(
-                            modifier = Modifier
-                                .clip(shape = RoundedCornerShape(16.dp))
-                                .background(
-                                    color = colors.secondary40
-                                )
-                                .clickable { expanded = !expanded }
-                                .padding(vertical = 8.dp, horizontal = 16.dp)
+                            modifier =
+                                Modifier
+                                    .clip(shape = RoundedCornerShape(16.dp))
+                                    .background(
+                                        color = colors.secondary40,
+                                    ).clickable { expanded = !expanded }
+                                    .padding(vertical = 8.dp, horizontal = 16.dp),
                         ) {
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.End
+                                horizontalArrangement = Arrangement.End,
                             ) {
                                 Text(
                                     text = selectedTheme,
                                     style = typography.textMediumNormal,
-                                    color = colors.neutral9
+                                    color = colors.neutral9,
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Icon(
-                                    imageVector = if (expanded)
-                                        ImageVector.vectorResource(R.drawable.ic_arrow_up)
-                                    else ImageVector.vectorResource(R.drawable.ic_arrow_down),
+                                    imageVector =
+                                        if (expanded) {
+                                            ImageVector.vectorResource(R.drawable.ic_arrow_up)
+                                        } else {
+                                            ImageVector.vectorResource(R.drawable.ic_arrow_down)
+                                        },
                                     contentDescription = "Dropdown Icon",
-                                    tint = colors.neutral9
+                                    tint = colors.neutral9,
                                 )
                             }
 
@@ -300,8 +309,9 @@ fun SettingsScreen(
                                 offset = DpOffset(x = 16.dp, y = 14.dp),
                                 shape = RoundedCornerShape(16.dp),
                                 onDismissRequest = { expanded = false },
-                                modifier = Modifier
-                                    .fillMaxWidth()
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth(),
                             ) {
                                 options.forEach { option ->
                                     DropdownMenuItem(
@@ -315,8 +325,8 @@ fun SettingsScreen(
                                                         else -> {
                                                             SettingsState.Theme.AUTO
                                                         }
-                                                    }
-                                                )
+                                                    },
+                                                ),
                                             )
                                             expanded = false
                                             onThemeUpdated.invoke(
@@ -325,16 +335,16 @@ fun SettingsScreen(
                                                     "Світла" -> false
                                                     "Темна" -> true
                                                     else -> isSystemInDarkTheme
-                                                }
+                                                },
                                             )
                                         },
                                         text = {
                                             Text(
                                                 text = option,
                                                 style = typography.textRegularMedium,
-                                                color = colors.neutral9
+                                                color = colors.neutral9,
                                             )
-                                        }
+                                        },
                                     )
                                 }
                             }
@@ -342,24 +352,20 @@ fun SettingsScreen(
                     }
                 }
             }
-        }
+        },
     )
 }
-
 
 @Preview(device = "id:pixel_9", showSystemUi = true)
 @Composable
 fun SettingsScreenPreview() {
     AirAlarmUATheme {
         SettingsScreen(
-            onBackClick = {}, onChangeRegionClick = {},
+            onBackClick = {},
+            onChangeRegionClick = {},
             onAction = {},
-            region = "",
-            alertNotifications = false,
-            telegramNotifications = false,
-            theme = SettingsState.Theme.LIGHT,
-            onThemeUpdated = {}
+            onThemeUpdated = {},
+            uiState = SettingsState(),
         )
     }
 }
-

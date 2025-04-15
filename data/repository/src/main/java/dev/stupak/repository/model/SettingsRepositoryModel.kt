@@ -6,8 +6,10 @@ data class SettingsRepositoryModel(
     val telegramNotifications: Boolean,
     val region: String,
     val theme: Theme,
-){
+) {
     enum class Theme {
-        AUTO, LIGHT, DARK
+        AUTO,
+        LIGHT,
+        DARK,
     }
 }

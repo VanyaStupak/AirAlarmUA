@@ -17,27 +17,32 @@ import com.aay.compose.baseComponents.model.LegendPosition
 import dev.stupak.ui.theme.LocalAppTheme
 
 @Composable
-fun HistoryBarChart(yAxisData1:List<Double>, yAxisData2:List<Double>, xAxisData:List<String>) {
-
+fun HistoryBarChart(
+    yAxisData1: List<Double>,
+    yAxisData2: List<Double>,
+    xAxisData: List<String>,
+) {
     val colors = LocalAppTheme.current.colors
 
-    val testBarParameters: List<BarParameters> = listOf(
-        BarParameters(
-            dataName = "",
-            data = yAxisData1,
-            barColor = LocalAppTheme.current.colors.statsBar,
-        ),
-        BarParameters(
-            dataName = "",
-            data = yAxisData2,
-            barColor = LocalAppTheme.current.colors.warning,
+    val testBarParameters: List<BarParameters> =
+        listOf(
+            BarParameters(
+                dataName = "",
+                data = yAxisData1,
+                barColor = LocalAppTheme.current.colors.statsBar,
+            ),
+            BarParameters(
+                dataName = "",
+                data = yAxisData2,
+                barColor = LocalAppTheme.current.colors.warning,
+            ),
         )
-    )
 
-    Box(Modifier
-        .fillMaxWidth()
-        .padding( bottom = 12.dp)
-        .height(330.dp)
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .padding(bottom = 12.dp)
+            .height(330.dp),
     ) {
         BarChart(
             chartParameters = testBarParameters,
@@ -49,18 +54,20 @@ fun HistoryBarChart(yAxisData1:List<Double>, yAxisData2:List<Double>, xAxisData:
             spaceBetweenBars = 3.dp,
             spaceBetweenGroups = 24.dp,
             showGridWithSpacer = true,
-            yAxisStyle = TextStyle(
-                fontSize = 14.sp,
-                color = colors.neutral9,
-            ),
-            xAxisStyle = TextStyle(
-                fontSize = 14.sp,
-                color = colors.neutral9,
-                fontWeight = FontWeight.W400
-            ),
+            yAxisStyle =
+                TextStyle(
+                    fontSize = 14.sp,
+                    color = colors.neutral9,
+                ),
+            xAxisStyle =
+                TextStyle(
+                    fontSize = 14.sp,
+                    color = colors.neutral9,
+                    fontWeight = FontWeight.W400,
+                ),
             yAxisRange = 8,
             barWidth = 10.dp,
-            legendPosition = LegendPosition.DISAPPEAR
+            legendPosition = LegendPosition.DISAPPEAR,
         )
     }
 }

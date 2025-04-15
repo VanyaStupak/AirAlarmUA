@@ -13,5 +13,5 @@ data class MainScreenState(
     val isHistoryLoading: Boolean = false,
     val error: String? = null,
     val historyError: String? = null,
-    val isConnected: Boolean = true
+    val isConnected: Boolean = true,
 )

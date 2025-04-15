@@ -1,21 +1,14 @@
 import com.google.protobuf.gradle.id
 
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    id("dev.stupak.airalarmua.convention.feature")
+    id("dev.stupak.airalarmua.convention.common.detekt")
+    id("dev.stupak.airalarmua.convention.common.ktlint")
     alias(libs.plugins.protobuf)
 }
 
 android {
-    namespace = "com.example.local"
-    compileSdk = 35
-
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
+    namespace = "dev.stupak.local"
 
     protobuf {
         protoc {
@@ -33,23 +26,6 @@ android {
                 }
             }
         }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
     }
 }
 

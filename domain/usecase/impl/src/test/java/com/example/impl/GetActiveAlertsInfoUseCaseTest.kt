@@ -1,10 +1,10 @@
 package com.example.impl
 
-import com.example.impl.usecase.GetActiveAlertsInfoUseCaseImpl
-import com.example.usecase.model.DomainAlertsList
-import com.example.usecase.usecase.GetActiveAlertsInfoUseCase
 import dev.stupak.repository.AlertsRepository
 import dev.stupak.repository.model.RepositoryAlertsList
+import dev.stupak.usecase.impl.usecase.GetActiveAlertsInfoUseCaseImpl
+import dev.stupak.usecase.model.DomainAlertsList
+import dev.stupak.usecase.usecase.GetActiveAlertsInfoUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +18,6 @@ import org.junit.Test
 import java.io.IOException
 
 class GetActiveAlertsInfoUseCaseTest {
-
     private lateinit var useCase: GetActiveAlertsInfoUseCase
     private val alertsRepository: AlertsRepository = mockk()
 
@@ -28,30 +27,32 @@ class GetActiveAlertsInfoUseCaseTest {
     }
 
     @Test
-    fun `invoke should return success with transformed data`() = runTest {
-        val domainAlertsList = DomainAlertsList(emptyList())
-        val repositoryList = RepositoryAlertsList(emptyList())
+    fun `invoke should return success with transformed data`() =
+        runTest {
+            val domainAlertsList = DomainAlertsList(emptyList())
+            val repositoryList = RepositoryAlertsList(emptyList())
 
-        coEvery { alertsRepository.getActiveAlertsInfo() } returns flowOf(repositoryList)
+            coEvery { alertsRepository.getActiveAlertsInfo() } returns flowOf(repositoryList)
 
-        val resultFlow: Flow<Result<DomainAlertsList>> = useCase.invoke()
+            val resultFlow: Flow<Result<DomainAlertsList>> = useCase.invoke()
 
-        resultFlow.collect { result ->
-            assertTrue(result.isSuccess)
-            assertEquals(domainAlertsList, result.getOrNull())
+            resultFlow.collect { result ->
+                assertTrue(result.isSuccess)
+                assertEquals(domainAlertsList, result.getOrNull())
+            }
         }
-    }
 
     @Test
-    fun `invoke should return failure when repository throws an exception`() = runTest {
-        val exception = IOException("Network error")
-        coEvery { alertsRepository.getActiveAlertsInfo() } returns flow { throw exception }
+    fun `invoke should return failure when repository throws an exception`() =
+        runTest {
+            val exception = IOException("Network error")
+            coEvery { alertsRepository.getActiveAlertsInfo() } returns flow { throw exception }
 
-        val resultFlow: Flow<Result<DomainAlertsList>> = useCase.invoke()
+            val resultFlow: Flow<Result<DomainAlertsList>> = useCase.invoke()
 
-        resultFlow.collect { result ->
-            assertTrue(result.isFailure)
-            assertEquals(exception, result.exceptionOrNull())
+            resultFlow.collect { result ->
+                assertTrue(result.isFailure)
+                assertEquals(exception, result.exceptionOrNull())
+            }
         }
-    }
 }

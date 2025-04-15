@@ -1,7 +1,15 @@
 @file:Suppress("UnstableApiUsage")
-
 pluginManagement {
-    enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+    repositories {
+        google()
+        mavenCentral()
+        mavenLocal()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    @Suppress("UnstableApiUsage")
     repositories {
         google {
             content {
@@ -12,16 +20,10 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
     }
-}
-
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-
     versionCatalogs {
         create("libs") {
             from(files("../gradle/libs.versions.toml"))

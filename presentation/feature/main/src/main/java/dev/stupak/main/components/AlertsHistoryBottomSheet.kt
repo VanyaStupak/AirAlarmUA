@@ -24,7 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.common.Strings
+import dev.stupak.common.Strings
 import dev.stupak.main.MainScreenState
 import dev.stupak.ui.R
 import dev.stupak.ui.theme.LocalAppTheme
@@ -43,7 +43,7 @@ fun AlertsHistoryBottomSheet(
     regionName: String,
     uiState: MainScreenState,
     selectedRange: String,
-    onRangeSelected: (String) -> Unit
+    onRangeSelected: (String) -> Unit,
 ) {
     val colors = LocalAppTheme.current.colors
     val typography = LocalAppTheme.current.typography
@@ -56,33 +56,37 @@ fun AlertsHistoryBottomSheet(
         containerColor = colors.statsBackground,
         dragHandle = {
             Box(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .width(50.dp)
-                    .height(6.dp)
-                    .clip(RoundedCornerShape(50))
-                    .background(colors.primary120)
+                modifier =
+                    Modifier
+                        .padding(8.dp)
+                        .width(50.dp)
+                        .height(6.dp)
+                        .clip(RoundedCornerShape(50))
+                        .background(colors.primary120),
             )
-        }
+        },
     ) {
         Column {
             Text(
-                modifier = Modifier
-                    .padding(start = 12.dp, end = 12.dp, top = 8.dp),
+                modifier =
+                    Modifier
+                        .padding(start = 12.dp, end = 12.dp, top = 8.dp),
                 text = regionName,
                 style = typography.heading4,
-                color = colors.neutral9
+                color = colors.neutral9,
             )
-            if(noInternet || historyError != null){
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .height(400.dp),
-                    contentAlignment = Alignment.Center
+            if (noInternet || historyError != null) {
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .height(400.dp),
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = stringResource(R.string.history_error),
-                        color = colors.neutral9
+                        color = colors.neutral9,
                     )
                 }
             }
@@ -109,46 +113,49 @@ fun AlertsHistoryBottomSheet(
                 calendar.add(Calendar.DAY_OF_MONTH, -1)
             }
 
-            val groupedData = filteredHistory
-                .groupingBy { outputFormat.format(dateFormat.parse(it.startedAt)) }
-                .eachCount()
+            val groupedData =
+                filteredHistory
+                    .groupingBy { outputFormat.format(dateFormat.parse(it.startedAt)) }
+                    .eachCount()
 
             val finalGroupedData = allDateList.associateWith { groupedData[it] ?: 0.03 }
 
             val indicesList = finalGroupedData.keys.toList()
             val valuesList = finalGroupedData.values.map { it.toDouble() }
 
-            val groupedDataDurations = filteredHistory
-                .groupBy { outputFormat.format(dateFormat.parse(it.startedAt)) }
-                .mapValues { (_, alerts) ->
-                    alerts.filter { it.finishedAt != null }
-                        .sumOf {
-                            val startedAt = dateFormat.parse(it.startedAt).time
-                            val finishedAt = dateFormat.parse(it.finishedAt).time
-                            val durationInMillis = finishedAt - startedAt
-                            durationInMillis / (1000.0 * 60 * 60)
-                        }
-                }
+            val groupedDataDurations =
+                filteredHistory
+                    .groupBy { outputFormat.format(dateFormat.parse(it.startedAt)) }
+                    .mapValues { (_, alerts) ->
+                        alerts
+                            .filter { it.finishedAt != null }
+                            .sumOf {
+                                val startedAt = dateFormat.parse(it.startedAt).time
+                                val finishedAt = dateFormat.parse(it.finishedAt).time
+                                val durationInMillis = finishedAt - startedAt
+                                durationInMillis / (1000.0 * 60 * 60)
+                            }
+                    }
 
             val finalDurationsData = allDateList.associateWith { groupedDataDurations[it] ?: 0.03 }
             val durationValuesList = finalDurationsData.values.toList()
 
-
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(12.dp),
-                verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 HistoryInfo(
-                    modifier = Modifier
+                    modifier = Modifier,
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
 
                 HistoryToggleButtons(
                     modifier = Modifier,
-                    selectedRange = selectedRange
+                    selectedRange = selectedRange,
                 ) {
                     onRangeSelected(it)
                 }
@@ -157,33 +164,37 @@ fun AlertsHistoryBottomSheet(
             fun filterData(
                 range: String,
                 indices: List<String>,
-                values: List<Double>
+                values: List<Double>,
             ): Pair<List<String>, List<Double>> {
-                val filteredIndices = when (range) {
-                    "week" -> indices.take(7)
-                    "month" -> indices
-                    else -> indices
-                }
+                val filteredIndices =
+                    when (range) {
+                        "week" -> indices.take(7)
+                        "month" -> indices
+                        else -> indices
+                    }
 
-                val filteredValues = when (range) {
-                    "week" -> values.take(7)
-                    "month" -> values
-                    else -> values
-                }
+                val filteredValues =
+                    when (range) {
+                        "week" -> values.take(7)
+                        "month" -> values
+                        else -> values
+                    }
 
                 return (filteredIndices + "") to (filteredValues + 0.0)
             }
 
-            val (filteredIndices, filteredValues) = filterData(
-                selectedRange,
-                indicesList,
-                valuesList
-            )
-            val (_, filteredDurationValues) = filterData(
-                selectedRange,
-                indicesList,
-                durationValuesList
-            )
+            val (filteredIndices, filteredValues) =
+                filterData(
+                    selectedRange,
+                    indicesList,
+                    valuesList,
+                )
+            val (_, filteredDurationValues) =
+                filterData(
+                    selectedRange,
+                    indicesList,
+                    durationValuesList,
+                )
             val totalAlerts = filteredValues.sum().toInt()
             val totalDurationInHours = filteredDurationValues.sum()
             val totalDurationInMinutes = (totalDurationInHours * 60).toInt()
@@ -191,70 +202,74 @@ fun AlertsHistoryBottomSheet(
             val minutes = totalDurationInMinutes % 60
             if (uiState.isHistoryLoading) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp),
-                    contentAlignment = Alignment.Center
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(300.dp),
+                    contentAlignment = Alignment.Center,
                 ) {
                     CircularProgressIndicator(
-                        color = colors.secondary100
+                        color = colors.secondary100,
                     )
                 }
             } else {
                 HistoryBarChart(
                     yAxisData1 = filteredValues,
                     xAxisData = filteredIndices,
-                    yAxisData2 = filteredDurationValues
+                    yAxisData2 = filteredDurationValues,
                 )
             }
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(colors.statsAmount, RoundedCornerShape(32.dp))
-                        .padding(32.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(colors.statsAmount, RoundedCornerShape(32.dp))
+                            .padding(32.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         text = stringResource(R.string.total_alerts),
                         color = colors.toggleText,
-                        style = typography.heading6
+                        style = typography.heading6,
                     )
 
                     Text(
                         text = totalAlerts.toString(),
                         color = colors.toggleText,
-                        style = typography.heading6
+                        style = typography.heading6,
                     )
                 }
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(colors.statsTime, RoundedCornerShape(32.dp))
-                        .padding(32.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(colors.statsTime, RoundedCornerShape(32.dp))
+                            .padding(32.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         text = stringResource(R.string.total_alerts_time),
                         color = colors.toggleText,
-                        style = typography.heading6
+                        style = typography.heading6,
                     )
 
                     Text(
-                        text = "$hours ${stringResource(id = R.string.hours_and_minutes)}" +
+                        text =
+                            "$hours ${stringResource(id = R.string.hours_and_minutes)}" +
                                 " $minutes ${stringResource(R.string.minutes)}",
                         color = colors.toggleText,
-                        style = typography.heading6
+                        style = typography.heading6,
                     )
                 }
             }
         }
-
     }
 }

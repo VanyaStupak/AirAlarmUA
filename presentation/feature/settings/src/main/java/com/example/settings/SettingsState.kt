@@ -6,8 +6,10 @@ data class SettingsState(
     val telegramNotifications: Boolean = false,
     val region: String = "",
     val theme: Theme = Theme.AUTO,
-){
-    enum class Theme{
-        LIGHT, DARK, AUTO
+) {
+    enum class Theme {
+        LIGHT,
+        DARK,
+        AUTO,
     }
 }

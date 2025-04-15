@@ -21,23 +21,23 @@ fun HistoryToggleButtons(
     val colors = LocalAppTheme.current.colors
 
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(32.dp))
-            .background(colors.neutral2)
-            .padding(8.dp),
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(32.dp))
+                .background(colors.neutral2)
+                .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ToggleButtons(
             isSelected = selectedRange == "month",
             text = stringResource(dev.stupak.ui.R.string.month),
-            onClick = { onRangeChange("month") }
+            onClick = { onRangeChange("month") },
         )
 
         ToggleButtons(
             isSelected = selectedRange == "week",
             text = stringResource(dev.stupak.ui.R.string.week),
-            onClick = { onRangeChange("week") }
+            onClick = { onRangeChange("week") },
         )
-
     }
 }

@@ -29,8 +29,11 @@ import dev.stupak.main.maps.regions.getZakarpattiaRegionMap
 import dev.stupak.main.maps.regions.getZaporizhzhiaRegionMap
 import dev.stupak.main.maps.regions.getZhytomyrRegionMap
 
-fun getRegionMap(regionName: String, mapArgs: MapArgs): ImageVector {
-    return when (regionName) {
+fun getRegionMap(
+    regionName: String,
+    mapArgs: MapArgs,
+): ImageVector =
+    when (regionName) {
         "Хмельницька область" -> getKhmelnitskRegionMap(mapArgs)
         "Вінницька область" -> getVinnitsiaRegionMap(mapArgs)
         "Рівненська область" -> getRivneRegionMap(mapArgs)
@@ -58,5 +61,3 @@ fun getRegionMap(regionName: String, mapArgs: MapArgs): ImageVector {
         "Автономна Республіка Крим" -> getCrimeaRegionMap(mapArgs)
         else -> Icons.Default.Info
     }
-}
-

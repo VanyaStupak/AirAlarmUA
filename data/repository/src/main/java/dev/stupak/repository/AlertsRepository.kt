@@ -6,9 +6,12 @@ import kotlinx.coroutines.flow.Flow
 interface AlertsRepository {
     suspend fun getActiveAlertsInfo(): Flow<RepositoryAlertsList>
 
-    suspend fun getActiveAlertsInfoFromNet():RepositoryAlertsList
+    suspend fun getActiveAlertsInfoFromNet(): RepositoryAlertsList
 
-    suspend fun getAlertsForPeriod(uid:Int = 31,period:String = "month_ago"): RepositoryAlertsList
+    suspend fun getAlertsForPeriod(
+        uid: Int = 31,
+        period: String = "month_ago",
+    ): RepositoryAlertsList
 
     suspend fun insertActiveAlertsInfo(alerts: RepositoryAlertsList)
 

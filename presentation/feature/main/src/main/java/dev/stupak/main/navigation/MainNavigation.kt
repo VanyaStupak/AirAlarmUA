@@ -21,6 +21,6 @@ internal fun MainRoute(
         onSettingsButtonClick = onSettingsButtonClick,
         regionName = uiState.region,
         isFirstRun = uiState.isFirstRun,
-        initialPage = initialPage
+        initialPage = initialPage,
     )
 }

@@ -20,27 +20,31 @@ import dev.stupak.ui.theme.LocalAppTheme
 @Composable
 fun AlertsInfo(
     modifier: Modifier,
-    isRegionShown: Boolean
+    isRegionShown: Boolean,
 ) {
     val colors = LocalAppTheme.current.colors
     val typography = LocalAppTheme.current.typography
 
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         Row {
             Icon(
                 imageVector = ImageVector.vectorResource(dev.stupak.ui.R.drawable.ic_red_circle),
                 contentDescription = null,
-                tint = Color.Unspecified
+                tint = Color.Unspecified,
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 modifier = Modifier.align(Alignment.CenterVertically),
-                text = if(isRegionShown) stringResource(dev.stupak.ui.R.string.air_raid_alert_in_region)
-                else stringResource(dev.stupak.ui.R.string.air_raid_alert_in_area),
+                text =
+                    if (isRegionShown) {
+                        stringResource(dev.stupak.ui.R.string.air_raid_alert_in_region)
+                    } else {
+                        stringResource(dev.stupak.ui.R.string.air_raid_alert_in_area)
+                    },
                 style = typography.textRegularNormal,
-                color = colors.neutral9
+                color = colors.neutral9,
             )
         }
 
@@ -50,15 +54,19 @@ fun AlertsInfo(
             Icon(
                 imageVector = ImageVector.vectorResource(dev.stupak.ui.R.drawable.ic_yellow_circle),
                 contentDescription = null,
-                tint = Color.Unspecified
+                tint = Color.Unspecified,
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 modifier = Modifier.align(Alignment.CenterVertically),
-                text = if(isRegionShown) stringResource(dev.stupak.ui.R.string.other_types_of_alerts)
-                else stringResource(dev.stupak.ui.R.string.partial_alert_in_districts),
+                text =
+                    if (isRegionShown) {
+                        stringResource(dev.stupak.ui.R.string.other_types_of_alerts)
+                    } else {
+                        stringResource(dev.stupak.ui.R.string.partial_alert_in_districts)
+                    },
                 style = typography.textRegularNormal,
-                color = colors.neutral9
+                color = colors.neutral9,
             )
         }
     }

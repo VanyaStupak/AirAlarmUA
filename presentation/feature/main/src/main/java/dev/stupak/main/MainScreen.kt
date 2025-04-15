@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -65,23 +64,19 @@ import dev.stupak.ui.theme.LocalAppTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(
     uiState: MainScreenState,
     onSettingsButtonClick: () -> Unit,
     regionName: String,
     isFirstRun: Boolean,
-    initialPage: Int
+    initialPage: Int,
 ) {
-
-
     val colors = LocalAppTheme.current.colors
     val typography = LocalAppTheme.current.typography
     val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showBottomSheet by remember { mutableStateOf(false) }
-
 
     val pagerState = rememberPagerState(initialPage = initialPage) { 2 }
     val coroutineScope = rememberCoroutineScope()
@@ -94,72 +89,78 @@ fun MainScreen(
         if (isFirstRun && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
                     context,
-                    Manifest.permission.POST_NOTIFICATIONS
+                    Manifest.permission.POST_NOTIFICATIONS,
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
                     (context as Activity),
                     arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                    1001
+                    1001,
                 )
             }
         }
     }
 
-    val colorsMap = remember(uiState.alertsList) {
-        uiState.alertsList
-            .map { alert ->
-                val oblastId = regionsUkraine.indexOf(alert.locationOblast)
-                oblastId to alert
-            }
-            .groupBy { it.first }
-            .mapValues { (_, group) ->
-                if (group.any { it.second.locationType == "oblast" }) colors.mapAlert
-                else colors.warning
-            }
-    }
-
-    val filteredLocations = remember(uiState.alertsList, regionName) {
-        uiState.alertsList
-            .filter { alert ->
-                when (regionName) {
-                    "Київська область" -> alert.locationOblast == regionName
-                            || alert.locationOblast == "м. Київ"
-
-                    else -> alert.locationOblast == regionName
-                }
-            }
-            .groupBy { it.alertType }
-            .mapValues { (_, alerts) ->
-                alerts.mapNotNull { alert ->
-                    when {
-                        regionName == "Київська область" ->
-                            alert.locationRaion ?: alert.locationOblast
-
-                        alert.locationType == "raion" ->
-                            alert.locationTitle
-
-                        else -> alert.locationRaion
+    val colorsMap =
+        remember(uiState.alertsList) {
+            uiState.alertsList
+                .map { alert ->
+                    val oblastId = regionsUkraine.indexOf(alert.locationOblast)
+                    oblastId to alert
+                }.groupBy { it.first }
+                .mapValues { (_, group) ->
+                    if (group.any { it.second.locationType == "oblast" }) {
+                        colors.mapAlert
+                    } else {
+                        colors.warning
                     }
-                }.toSet()
-            }
-    }
-    val oblastAlert = remember(uiState.alertsList, regionName) {
-        uiState.alertsList.any {
-            it.locationTitle == regionName
+                }
         }
-    }
 
-    val mapArgs = MapArgs(
-        textColor = colors.mapText,
-        strokeColor = colors.neutral05,
-        defaultColor = colors.neutral5,
-        districtsSet = filteredLocations,
-        oblastAlert = oblastAlert
-    )
+    val filteredLocations =
+        remember(uiState.alertsList, regionName) {
+            uiState.alertsList
+                .filter { alert ->
+                    when (regionName) {
+                        "Київська область" ->
+                            alert.locationOblast == regionName ||
+                                alert.locationOblast == "м. Київ"
+
+                        else -> alert.locationOblast == regionName
+                    }
+                }.groupBy { it.alertType }
+                .mapValues { (_, alerts) ->
+                    alerts
+                        .mapNotNull { alert ->
+                            when {
+                                regionName == "Київська область" ->
+                                    alert.locationRaion ?: alert.locationOblast
+
+                                alert.locationType == "raion" ->
+                                    alert.locationTitle
+
+                                else -> alert.locationRaion
+                            }
+                        }.toSet()
+                }
+        }
+    val oblastAlert =
+        remember(uiState.alertsList, regionName) {
+            uiState.alertsList.any {
+                it.locationTitle == regionName
+            }
+        }
+
+    val mapArgs =
+        MapArgs(
+            textColor = colors.mapText,
+            strokeColor = colors.neutral05,
+            defaultColor = colors.neutral5,
+            districtsSet = filteredLocations,
+            oblastAlert = oblastAlert,
+        )
 
     LaunchedEffect(pagerState.currentPage) {
-
         listState.scrollToItem(0)
 
         selectedMap = if (pagerState.currentPage == 0) "Ukraine" else "Oblast"
@@ -171,41 +172,43 @@ fun MainScreen(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colors.neutral2)
-            .statusBarsPadding()
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(colors.neutral2)
+                .statusBarsPadding(),
     ) {
         if (!uiState.isConnected) {
             ErrorMessage(stringResource(R.string.no_internet_connection))
         }
         if (uiState.error != null) {
-           ErrorMessage(uiState.error)
+            ErrorMessage(uiState.error)
         }
-            if (showBottomSheet) {
-                AlertsHistoryBottomSheet(
-                    onDismissRequest = { showBottomSheet = false },
-                    sheetState = sheetState,
-                    historyError = uiState.historyError,
-                    noInternet = !uiState.isConnected && uiState.alertsHistoryList.isEmpty(),
-                    regionName = regionName,
-                    uiState = uiState,
-                    selectedRange = selectedRange,
-                    onRangeSelected = { selectedRange = it }
-                )
-            }
-
+        if (showBottomSheet) {
+            AlertsHistoryBottomSheet(
+                onDismissRequest = { showBottomSheet = false },
+                sheetState = sheetState,
+                historyError = uiState.historyError,
+                noInternet = !uiState.isConnected && uiState.alertsHistoryList.isEmpty(),
+                regionName = regionName,
+                uiState = uiState,
+                selectedRange = selectedRange,
+                onRangeSelected = { selectedRange = it },
+            )
+        }
 
         Column(
-            modifier = Modifier
-                .padding(top = 20.dp, start = 12.dp, end = 12.dp)
+            modifier =
+                Modifier
+                    .padding(top = 20.dp, start = 12.dp, end = 12.dp),
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp, start = 8.dp, end = 8.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, start = 8.dp, end = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
+                horizontalArrangement = Arrangement.End,
             ) {
                 MapToggleButtons(
                     modifier = Modifier.padding(end = 8.dp),
@@ -218,48 +221,52 @@ fun MainScreen(
                         }
                         selectedMap = it
                     },
-                    oblast = regionName
+                    oblast = regionName,
                 )
                 IconButton(
                     modifier = Modifier,
                     onClick = {
                         onSettingsButtonClick()
-                    }
+                    },
                 ) {
                     Icon(
-                        imageVector = ImageVector
-                            .vectorResource(R.drawable.ic_settings),
+                        imageVector =
+                            ImageVector
+                                .vectorResource(R.drawable.ic_settings),
                         contentDescription = "Settings",
-                        tint = colors.neutral9
+                        tint = colors.neutral9,
                     )
                 }
             }
 
             HorizontalPager(
                 state = pagerState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
             ) { page ->
                 when (page) {
                     0 -> {
                         key(colorsMap) {
                             if (uiState.isLoading) {
                                 Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .aspectRatio(1.3f),
-                                    contentAlignment = Alignment.Center
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .aspectRatio(1.3f),
+                                    contentAlignment = Alignment.Center,
                                 ) {
                                     CircularProgressIndicator(color = colors.secondary100)
                                 }
                             } else {
                                 MapImage(
-                                    imageVector = getUkraineMap(
-                                        colorsMap = colorsMap,
-                                        strokeColor = colors.mapStroke,
-                                        defaultColor = colors.mapDefault
-                                    )
+                                    imageVector =
+                                        getUkraineMap(
+                                            colorsMap = colorsMap,
+                                            strokeColor = colors.mapStroke,
+                                            defaultColor = colors.mapDefault,
+                                        ),
                                 )
                             }
                         }
@@ -268,69 +275,69 @@ fun MainScreen(
                     1 -> {
                         if (uiState.isLoading) {
                             Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .aspectRatio(1.3f),
-                                contentAlignment = Alignment.Center
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .aspectRatio(1.3f),
+                                contentAlignment = Alignment.Center,
                             ) {
                                 CircularProgressIndicator(
-                                    color = colors.secondary100
+                                    color = colors.secondary100,
                                 )
                             }
                         } else {
                             MapImage(
-                                imageVector = getRegionMap(regionName, mapArgs)
+                                imageVector = getRegionMap(regionName, mapArgs),
                             )
                         }
-
                     }
                 }
             }
 
             AlertsInfo(
                 modifier = Modifier.padding(start = 12.dp, bottom = 12.dp, top = 4.dp),
-                isRegionShown = pagerState.currentPage == 1
+                isRegionShown = pagerState.currentPage == 1,
             )
-
         }
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    colors.neutral05,
-                    RoundedCornerShape(topStart = 48.dp, topEnd = 48.dp)
-                )
-                .padding(top = 8.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .background(
+                        colors.neutral05,
+                        RoundedCornerShape(topStart = 48.dp, topEnd = 48.dp),
+                    ).padding(top = 8.dp),
         ) {
-
             Row(
-                modifier = Modifier
-                    .padding(start = 20.dp, end = 20.dp, bottom = 4.dp),
+                modifier =
+                    Modifier
+                        .padding(start = 20.dp, end = 20.dp, bottom = 4.dp),
             ) {
                 Text(
-                    modifier = Modifier
-                        .padding(top = 8.dp)
-                        .align(Alignment.Bottom),
+                    modifier =
+                        Modifier
+                            .padding(top = 8.dp)
+                            .align(Alignment.Bottom),
                     text = stringResource(R.string.active_alerts),
                     style = typography.heading5,
-                    color = colors.neutral9
+                    color = colors.neutral9,
                 )
-                if(pagerState.currentPage == 1) {
+                if (pagerState.currentPage == 1) {
                     Spacer(modifier = Modifier.weight(1f))
                     Row(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(360.dp))
-                            .background(colors.button)
-                            .clickable {
-                                showBottomSheet = true
-                            }
-                            .padding(vertical = 8.dp, horizontal = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier =
+                            Modifier
+                                .clip(RoundedCornerShape(360.dp))
+                                .background(colors.button)
+                                .clickable {
+                                    showBottomSheet = true
+                                }.padding(vertical = 8.dp, horizontal = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             text = stringResource(R.string.statistics),
                             style = typography.textRegularNormal,
-                            color = colors.white
+                            color = colors.white,
                         )
 
                         Spacer(modifier = Modifier.width(8.dp))
@@ -338,32 +345,33 @@ fun MainScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_statistics),
                             contentDescription = null,
-                            tint = colors.white
+                            tint = colors.white,
                         )
                     }
                 }
-
             }
 
             AlertsList(
                 alerts =
-                if (pagerState.currentPage == 0) {
-                    uiState.alertsList
-                } else {
-                    uiState.alertsList.filter { alert ->
-                        when (regionName) {
-                            "Київська область" -> alert.locationOblast == regionName
-                                    || alert.locationOblast == "м. Київ"
+                    if (pagerState.currentPage == 0) {
+                        uiState.alertsList
+                    } else {
+                        uiState.alertsList.filter { alert ->
+                            when (regionName) {
+                                "Київська область" ->
+                                    alert.locationOblast == regionName ||
+                                        alert.locationOblast == "м. Київ"
 
-                            else -> alert.locationOblast == regionName
+                                else -> alert.locationOblast == regionName
+                            }
                         }
-                    }
-                },
-                modifier = Modifier
-                    .background(colors.neutral05)
-                    .padding(top = 4.dp, start = 12.dp, end = 12.dp)
-                    .offset { IntOffset(0, offsetY.value.toInt()) },
-                listState = listState
+                    },
+                modifier =
+                    Modifier
+                        .background(colors.neutral05)
+                        .padding(top = 4.dp, start = 12.dp, end = 12.dp)
+                        .offset { IntOffset(0, offsetY.value.toInt()) },
+                listState = listState,
             )
         }
     }

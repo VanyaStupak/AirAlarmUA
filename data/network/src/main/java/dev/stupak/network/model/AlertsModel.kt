@@ -28,10 +28,10 @@ data class AlertsApiModel(
     val locationRaion: String? = null,
     val notes: String?,
     val calculated: Boolean?,
-    val country: String?
+    val country: String?,
 )
 
 @Serializable
 data class AlertsList(
-    val alerts: List<AlertsApiModel>
+    val alerts: List<AlertsApiModel>,
 )

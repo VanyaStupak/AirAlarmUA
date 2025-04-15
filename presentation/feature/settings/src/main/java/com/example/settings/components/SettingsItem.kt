@@ -15,21 +15,21 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import dev.stupak.ui.theme.LocalAppTheme
 
-
 @Composable
 fun SettingsItem(
     imageVector: ImageVector,
     title: String,
     contentColor: Color = LocalAppTheme.current.colors.white,
     modifier: Modifier = Modifier,
-    endContent: @Composable RowScope.() -> Unit
+    endContent: @Composable RowScope.() -> Unit,
 ) {
     val typography = LocalAppTheme.current.typography
 
     Row(
-        modifier = modifier
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            modifier
+                .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = imageVector,
@@ -43,7 +43,7 @@ fun SettingsItem(
             text = title,
             style = typography.textLargeMedium,
             color = contentColor,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
 
         Spacer(modifier = Modifier.width(8.dp))

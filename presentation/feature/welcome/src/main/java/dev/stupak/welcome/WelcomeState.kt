@@ -9,6 +9,8 @@ data class WelcomeState(
     val theme: Theme = Theme.AUTO,
 ) {
     enum class Theme {
-        LIGHT, DARK, AUTO
+        LIGHT,
+        DARK,
+        AUTO,
     }
 }

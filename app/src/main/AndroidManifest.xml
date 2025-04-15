@@ -25,7 +25,7 @@
             android:foregroundServiceType="dataSync" />
 
         <activity
-            android:name="com.example.host.MainActivity"
+            android:name="dev.stupak.host.MainActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true"
             android:label="@string/app_name"

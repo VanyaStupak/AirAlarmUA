@@ -48,7 +48,7 @@ data class ColorPalette(
     val statsBar: Color,
     val statsAmount: Color,
     val statsTime: Color,
-    val networkConnectivity: Color
+    val networkConnectivity: Color,
 )
 
 val LightColorPalette =
@@ -92,7 +92,7 @@ val LightColorPalette =
         statsBar = Secondary100,
         statsAmount = Primary120,
         statsTime = Primary100,
-        networkConnectivity = Secondary120
+        networkConnectivity = Secondary120,
     )
 
 val DarkColorPalette =
@@ -136,29 +136,29 @@ val DarkColorPalette =
         statsBar = Secondary100,
         statsAmount = Neutral5,
         statsTime = Neutral6,
-        networkConnectivity = Secondary120
+        networkConnectivity = Secondary120,
     )
-
 
 data class AppTheme(
     val colors: ColorPalette,
-    val typography: Typography
+    val typography: Typography,
 )
 
-val LocalAppTheme = staticCompositionLocalOf<AppTheme> {
-    error("No AppTheme provided")
-}
+val LocalAppTheme =
+    staticCompositionLocalOf<AppTheme> {
+        error("No AppTheme provided")
+    }
 
 @Composable
 fun AirAlarmUATheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) DarkColorPalette else LightColorPalette
     val typography = LocalTypography.current
 
     CompositionLocalProvider(
-        LocalAppTheme provides AppTheme(colors, typography)
+        LocalAppTheme provides AppTheme(colors, typography),
     ) {
         content()
     }

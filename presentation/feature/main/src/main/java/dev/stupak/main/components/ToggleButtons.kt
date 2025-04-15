@@ -22,28 +22,30 @@ import dev.stupak.ui.theme.LocalAppTheme
 fun ToggleButtons(
     isSelected: Boolean,
     text: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
-
     val colors = LocalAppTheme.current.colors
     val typography = LocalAppTheme.current.typography
 
     Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(360.dp))
-            .background(
-                if (isSelected) colors.toggleButton
-                else Color.Transparent
-            )
-            .padding(vertical = 4.dp, horizontal = 12.dp)
-            .clickable(
-                indication = null,
-                interactionSource = remember { MutableInteractionSource() }
-            ) {
-                onClick()
-            },
+        modifier =
+            Modifier
+                .clip(RoundedCornerShape(360.dp))
+                .background(
+                    if (isSelected) {
+                        colors.toggleButton
+                    } else {
+                        Color.Transparent
+                    },
+                ).padding(vertical = 4.dp, horizontal = 12.dp)
+                .clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() },
+                ) {
+                    onClick()
+                },
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
     ) {
         Text(
             text = text,
@@ -51,8 +53,7 @@ fun ToggleButtons(
             color = if (isSelected) colors.toggleText else colors.neutral9,
             style = typography.textMediumMedium,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
         )
-
     }
 }

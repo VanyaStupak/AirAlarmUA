@@ -19,34 +19,35 @@ import androidx.glance.unit.ColorProvider
 import dev.stupak.ui.theme.LocalAppTheme
 
 @Composable
-fun NoAlertsView(
-    regionName: String?
-) {
+fun NoAlertsView(regionName: String?) {
     val colors = LocalAppTheme.current.colors
 
     Column(
-        modifier = GlanceModifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(16.dp)
-            .background(ColorProvider(colors.neutral9))
+        modifier =
+            GlanceModifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(16.dp)
+                .background(ColorProvider(colors.neutral9)),
     ) {
         Text(
             text = regionName ?: "",
-            style = TextStyle(
-                color = ColorProvider(Color.White),
-                fontWeight = FontWeight.Normal,
-                fontSize = 16.sp
-            )
+            style =
+                TextStyle(
+                    color = ColorProvider(Color.White),
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 16.sp,
+                ),
         )
         Spacer(modifier = GlanceModifier.height(4.dp))
         Text(
             text = "Наразі тривог немає",
-            style = TextStyle(
-                color = ColorProvider(Color.White),
-                fontWeight = FontWeight.Normal,
-                fontSize = 14.sp
-            )
+            style =
+                TextStyle(
+                    color = ColorProvider(Color.White),
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 14.sp,
+                ),
         )
     }
 }

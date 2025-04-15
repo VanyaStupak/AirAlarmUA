@@ -17,9 +17,10 @@ data class AlertsUiModel(
     val locationRaion: String? = null,
     val notes: String?,
     val calculated: Boolean?,
-    val country: String?
+    val country: String?,
 )
+
 @Immutable
 data class UiAlertsList(
-    val alerts: List<AlertsUiModel>
+    val alerts: List<AlertsUiModel>,
 )

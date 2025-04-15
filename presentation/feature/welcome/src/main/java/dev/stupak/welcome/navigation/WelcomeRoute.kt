@@ -15,15 +15,12 @@ internal fun WelcomeRoute(
     onBackClick: () -> Unit,
     viewModel: WelcomeViewModel = hiltViewModel(),
 ) {
-
     val uiState by viewModel.welcomeState.collectAsStateWithLifecycle()
-
 
     WelcomeScreen(
         onBackClick = onBackClick,
         onNavigateToMain,
         onAction = viewModel::onAction,
-        region = uiState.region,
-        isFirstRun = uiState.isFirstRun
+        uiState = uiState,
     )
 }

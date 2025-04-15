@@ -16,7 +16,6 @@ internal fun SettingsRoute(
     onThemeUpdated: (Boolean) -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
-
     val uiState by viewModel.settingsState.collectAsStateWithLifecycle()
 
     SettingsScreen(
@@ -24,10 +23,6 @@ internal fun SettingsRoute(
         onChangeRegionClick = onChangeRegionClick,
         onThemeUpdated = onThemeUpdated,
         onAction = viewModel::onAction,
-        region = uiState.region,
-        alertNotifications = uiState.alertsNotifications,
-        telegramNotifications = uiState.telegramNotifications,
-        theme = uiState.theme,
+        uiState = uiState,
     )
-
 }

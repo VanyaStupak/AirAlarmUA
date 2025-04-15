@@ -6,15 +6,15 @@ data class MapArgs(
     val textColor: Color,
     val strokeColor: Color,
     val defaultColor: Color,
-    val districtsSet:  Map<String, Set<String>>,
-    val oblastAlert: Boolean = false
+    val districtsSet: Map<String, Set<String>>,
+    val oblastAlert: Boolean = false,
 )
 
 fun getDistrictColors(
     districts: List<String>,
     mapArgs: MapArgs,
-): List<Color> {
-    return districts.map { district ->
+): List<Color> =
+    districts.map { district ->
         when {
             mapArgs.oblastAlert -> colorOblastAlert
             mapArgs.districtsSet["air_raid"]?.contains(district) == true -> colorOblastAlert
@@ -22,4 +22,3 @@ fun getDistrictColors(
             else -> mapArgs.defaultColor
         }
     }
-}

@@ -14,9 +14,9 @@ data class AlertsRepositoryModel(
     val locationRaion: String? = null,
     val notes: String?,
     val calculated: Boolean?,
-    val country: String?
+    val country: String?,
 )
 
 data class RepositoryAlertsList(
-    val alerts: List<AlertsRepositoryModel>
+    val alerts: List<AlertsRepositoryModel>,
 )

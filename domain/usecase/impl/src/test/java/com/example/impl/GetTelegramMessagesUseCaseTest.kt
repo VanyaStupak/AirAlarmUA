@@ -1,9 +1,8 @@
 package com.example.impl
 
-import com.example.impl.usecase.GetTelegramMessagesUseCaseImpl
-import com.example.usecase.usecase.GetTelegramMessagesUseCase
 import dev.stupak.repository.TelegramRepository
 import dev.stupak.repository.model.TelegramRepositoryModel
+import dev.stupak.usecase.impl.usecase.GetTelegramMessagesUseCaseImpl
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.Flow
@@ -17,8 +16,7 @@ import org.junit.Test
 import java.io.IOException
 
 class GetTelegramMessagesUseCaseTest {
-
-    private lateinit var useCase: GetTelegramMessagesUseCase
+    private lateinit var useCase: _root_ide_package_.dev.stupak.usecase.usecase.GetTelegramMessagesUseCase
     private val telegramRepository: TelegramRepository = mockk()
 
     @Before
@@ -27,33 +25,36 @@ class GetTelegramMessagesUseCaseTest {
     }
 
     @Test
-    fun `invoke should return success with transformed data`() = runTest {
-        val telegramMessages = listOf("Message 1", "Message 2", "Message 3")
-        val telegramMessageEntities = telegramMessages.map { TelegramRepositoryModel(it) }
+    fun `invoke should return success with transformed data`() =
+        runTest {
+            val telegramMessages = listOf("Message 1", "Message 2", "Message 3")
+            val telegramMessageEntities = telegramMessages.map { TelegramRepositoryModel(it) }
 
-        coEvery { telegramRepository.getTgAlerts() } returns flowOf(telegramMessageEntities)
+            coEvery { telegramRepository.getTgAlerts() } returns flowOf(telegramMessageEntities)
 
-        val resultFlow: Flow<Result<List<String>>> = useCase.invoke()
+            val resultFlow: Flow<Result<List<String>>> = useCase.invoke()
 
-        resultFlow.collect { result ->
-            assertTrue(result.isSuccess)
-            assertEquals(telegramMessages, result.getOrNull())
+            resultFlow.collect { result ->
+                assertTrue(result.isSuccess)
+                assertEquals(telegramMessages, result.getOrNull())
+            }
         }
-    }
 
     @Test
-    fun `invoke should return failure when repository throws an exception`() = runTest {
-        val exception = IOException("Network error")
+    fun `invoke should return failure when repository throws an exception`() =
+        runTest {
+            val exception = IOException("Network error")
 
-        coEvery { telegramRepository.getTgAlerts() } returns flow {
-            throw exception
+            coEvery { telegramRepository.getTgAlerts() } returns
+                flow {
+                    throw exception
+                }
+
+            val resultFlow: Flow<Result<List<String>>> = useCase.invoke()
+
+            resultFlow.collect { result ->
+                assertTrue(result.isFailure)
+                assertEquals(exception, result.exceptionOrNull())
+            }
         }
-
-        val resultFlow: Flow<Result<List<String>>> = useCase.invoke()
-
-        resultFlow.collect { result ->
-            assertTrue(result.isFailure)
-            assertEquals(exception, result.exceptionOrNull())
-        }
-    }
 }
