@@ -60,7 +60,7 @@ import dev.stupak.main.maps.common.getRegionMap
 import dev.stupak.ui.R
 import dev.stupak.ui.maps.getUkraineMap
 import dev.stupak.ui.maps.regionsUkraine
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,8 +72,6 @@ fun MainScreen(
     isFirstRun: Boolean,
     initialPage: Int,
 ) {
-    val colors = LocalAppTheme.current.colors
-    val typography = LocalAppTheme.current.typography
     val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -100,6 +98,7 @@ fun MainScreen(
             }
         }
     }
+    val colors = Theme.color
 
     val colorsMap =
         remember(uiState.alertsList) {
@@ -153,9 +152,9 @@ fun MainScreen(
 
     val mapArgs =
         MapArgs(
-            textColor = colors.mapText,
-            strokeColor = colors.neutral05,
-            defaultColor = colors.neutral5,
+            textColor = Theme.color.mapText,
+            strokeColor = Theme.color.neutral05,
+            defaultColor = Theme.color.neutral5,
             districtsSet = filteredLocations,
             oblastAlert = oblastAlert,
         )
@@ -175,7 +174,7 @@ fun MainScreen(
         modifier =
             Modifier
                 .fillMaxSize()
-                .background(colors.neutral2)
+                .background(Theme.color.neutral2)
                 .statusBarsPadding(),
     ) {
         if (!uiState.isConnected) {
@@ -234,7 +233,7 @@ fun MainScreen(
                             ImageVector
                                 .vectorResource(R.drawable.ic_settings),
                         contentDescription = "Settings",
-                        tint = colors.neutral9,
+                        tint = Theme.color.neutral9,
                     )
                 }
             }
@@ -257,15 +256,15 @@ fun MainScreen(
                                             .aspectRatio(1.3f),
                                     contentAlignment = Alignment.Center,
                                 ) {
-                                    CircularProgressIndicator(color = colors.secondary100)
+                                    CircularProgressIndicator(color = Theme.color.secondary100)
                                 }
                             } else {
                                 MapImage(
                                     imageVector =
                                         getUkraineMap(
                                             colorsMap = colorsMap,
-                                            strokeColor = colors.mapStroke,
-                                            defaultColor = colors.mapDefault,
+                                            strokeColor = Theme.color.mapStroke,
+                                            defaultColor = Theme.color.mapDefault,
                                         ),
                                 )
                             }
@@ -282,7 +281,7 @@ fun MainScreen(
                                 contentAlignment = Alignment.Center,
                             ) {
                                 CircularProgressIndicator(
-                                    color = colors.secondary100,
+                                    color = Theme.color.secondary100,
                                 )
                             }
                         } else {
@@ -304,7 +303,7 @@ fun MainScreen(
                 Modifier
                     .fillMaxWidth()
                     .background(
-                        colors.neutral05,
+                        Theme.color.neutral05,
                         RoundedCornerShape(topStart = 48.dp, topEnd = 48.dp),
                     ).padding(top = 8.dp),
         ) {
@@ -319,8 +318,8 @@ fun MainScreen(
                             .padding(top = 8.dp)
                             .align(Alignment.Bottom),
                     text = stringResource(R.string.active_alerts),
-                    style = typography.heading5,
-                    color = colors.neutral9,
+                    style = Theme.typography.heading5,
+                    color = Theme.color.neutral9,
                 )
                 if (pagerState.currentPage == 1) {
                     Spacer(modifier = Modifier.weight(1f))
@@ -328,7 +327,7 @@ fun MainScreen(
                         modifier =
                             Modifier
                                 .clip(RoundedCornerShape(360.dp))
-                                .background(colors.button)
+                                .background(Theme.color.button)
                                 .clickable {
                                     showBottomSheet = true
                                 }.padding(vertical = 8.dp, horizontal = 12.dp),
@@ -336,8 +335,8 @@ fun MainScreen(
                     ) {
                         Text(
                             text = stringResource(R.string.statistics),
-                            style = typography.textRegularNormal,
-                            color = colors.white,
+                            style = Theme.typography.textRegularNormal,
+                            color = Theme.color.white,
                         )
 
                         Spacer(modifier = Modifier.width(8.dp))
@@ -345,7 +344,7 @@ fun MainScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_statistics),
                             contentDescription = null,
-                            tint = colors.white,
+                            tint = Theme.color.white,
                         )
                     }
                 }
@@ -368,7 +367,7 @@ fun MainScreen(
                     },
                 modifier =
                     Modifier
-                        .background(colors.neutral05)
+                        .background(Theme.color.neutral05)
                         .padding(top = 4.dp, start = 12.dp, end = 12.dp)
                         .offset { IntOffset(0, offsetY.value.toInt()) },
                 listState = listState,

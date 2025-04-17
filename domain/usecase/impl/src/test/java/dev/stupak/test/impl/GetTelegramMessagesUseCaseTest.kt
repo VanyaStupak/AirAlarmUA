@@ -1,8 +1,9 @@
-package com.example.impl
+package dev.stupak.test.impl
 
 import dev.stupak.repository.TelegramRepository
 import dev.stupak.repository.model.TelegramRepositoryModel
 import dev.stupak.usecase.impl.usecase.GetTelegramMessagesUseCaseImpl
+import dev.stupak.usecase.usecase.GetTelegramMessagesUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +17,7 @@ import org.junit.Test
 import java.io.IOException
 
 class GetTelegramMessagesUseCaseTest {
-    private lateinit var useCase: _root_ide_package_.dev.stupak.usecase.usecase.GetTelegramMessagesUseCase
+    private lateinit var useCase: GetTelegramMessagesUseCase
     private val telegramRepository: TelegramRepository = mockk()
 
     @Before

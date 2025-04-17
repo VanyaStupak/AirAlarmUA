@@ -22,7 +22,7 @@ import androidx.glance.unit.ColorProvider
 import com.example.widget.model.AlertsUiModel
 import dev.stupak.common.formatDateTime
 import dev.stupak.ui.R
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun AlertsItem(
@@ -31,7 +31,6 @@ fun AlertsItem(
     showIcon: Boolean = true,
     showStatus: Boolean = false,
 ) {
-    val colors = LocalAppTheme.current.colors
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -74,7 +73,7 @@ fun AlertsItem(
                     text = "Повітряна тривога!",
                     style =
                         TextStyle(
-                            color = ColorProvider(colors.secondary100),
+                            color = ColorProvider(Theme.color.secondary100),
                             fontWeight = FontWeight.Normal,
                             fontSize = 16.sp,
                         ),
@@ -96,7 +95,7 @@ fun AlertsItem(
 @Composable
 fun getAlertIconAndColor(alertType: String): Pair<Int, Color> =
     when (alertType) {
-        "air_raid" -> R.drawable.ic_air_raid to LocalAppTheme.current.colors.mapAlert
-        "artillery_shelling" -> R.drawable.ic_artillery to LocalAppTheme.current.colors.warning
-        else -> R.drawable.ic_ak47 to LocalAppTheme.current.colors.warning
+        "air_raid" -> R.drawable.ic_air_raid to Theme.color.mapAlert
+        "artillery_shelling" -> R.drawable.ic_artillery to Theme.color.warning
+        else -> R.drawable.ic_ak47 to Theme.color.warning
     }

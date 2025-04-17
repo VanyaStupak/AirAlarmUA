@@ -16,13 +16,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun HistoryInfo(modifier: Modifier) {
-    val colors = LocalAppTheme.current.colors
-    val typography = LocalAppTheme.current.typography
-
     Column(
         modifier = modifier,
     ) {
@@ -37,8 +34,8 @@ fun HistoryInfo(modifier: Modifier) {
             Text(
                 modifier = Modifier.align(Alignment.CenterVertically),
                 text = stringResource(dev.stupak.ui.R.string.number_of_alerts),
-                style = typography.textRegularNormal,
-                color = colors.neutral9,
+                style = Theme.typography.textRegularNormal,
+                color = Theme.color.neutral9,
             )
         }
 
@@ -55,8 +52,8 @@ fun HistoryInfo(modifier: Modifier) {
             Text(
                 modifier = Modifier.align(Alignment.CenterVertically),
                 text = stringResource(dev.stupak.ui.R.string.alert_time_in_hours),
-                style = typography.textRegularNormal,
-                color = colors.neutral9,
+                style = Theme.typography.textRegularNormal,
+                color = Theme.color.neutral9,
             )
         }
     }

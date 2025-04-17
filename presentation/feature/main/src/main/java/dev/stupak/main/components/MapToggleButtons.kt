@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun MapToggleButtons(
@@ -19,13 +19,11 @@ fun MapToggleButtons(
     onMapChange: (String) -> Unit,
     oblast: String,
 ) {
-    val colors = LocalAppTheme.current.colors
-
     Row(
         modifier =
             modifier
                 .clip(RoundedCornerShape(32.dp))
-                .background(colors.toggle)
+                .background(Theme.color.toggle)
                 .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

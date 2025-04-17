@@ -46,9 +46,9 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.core.app.NotificationManagerCompat
 import com.example.settings.components.SettingsItem
 import com.example.settings.components.TopBar
+import dev.stupak.ui.AirAlarmUATheme
 import dev.stupak.ui.R
-import dev.stupak.ui.theme.AirAlarmUATheme
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun SettingsScreen(
@@ -58,9 +58,6 @@ fun SettingsScreen(
     onThemeUpdated: (Boolean) -> Unit,
     onAction: (SettingsIntent) -> Unit,
 ) {
-    val colors = LocalAppTheme.current.colors
-    val typography = LocalAppTheme.current.typography
-
     val context = LocalContext.current
 
     var isSwitchChecked by remember { mutableStateOf(false) }
@@ -98,7 +95,7 @@ fun SettingsScreen(
         }
 
     Scaffold(
-        containerColor = colors.neutral2,
+        containerColor = Theme.color.neutral2,
         topBar = {
             TopBar(onBackClick = onBackClick)
         },
@@ -115,20 +112,20 @@ fun SettingsScreen(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .background(colors.primary100, RoundedCornerShape(32.dp))
+                            .background(Theme.color.primary100, RoundedCornerShape(32.dp))
                             .padding(top = 32.dp, bottom = 24.dp, start = 32.dp, end = 32.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     Text(
                         text = stringResource(R.string.notifications),
-                        style = typography.heading4,
-                        color = colors.white,
+                        style = Theme.typography.heading4,
+                        color = Theme.color.white,
                     )
 
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_notifications),
                         title = stringResource(R.string.allow_notifications),
-                        contentColor = colors.white,
+                        contentColor = Theme.color.white,
                     ) {
                         Switch(
                             checked = isSwitchChecked,
@@ -147,27 +144,27 @@ fun SettingsScreen(
                             enabled = !isSwitchChecked,
                             colors =
                                 SwitchDefaults.colors(
-                                    checkedThumbColor = colors.neutral05,
-                                    checkedTrackColor = colors.primary120,
+                                    checkedThumbColor = Theme.color.neutral05,
+                                    checkedTrackColor = Theme.color.primary120,
                                     checkedBorderColor = Color.Transparent,
-                                    uncheckedThumbColor = colors.white,
-                                    uncheckedTrackColor = colors.neutral7,
+                                    uncheckedThumbColor = Theme.color.white,
+                                    uncheckedTrackColor = Theme.color.neutral7,
                                     uncheckedBorderColor = Color.Transparent,
-                                    disabledCheckedTrackColor = colors.primary120,
-                                    disabledCheckedThumbColor = colors.primary80,
+                                    disabledCheckedTrackColor = Theme.color.primary120,
+                                    disabledCheckedThumbColor = Theme.color.primary80,
                                 ),
                         )
                     }
 
                     HorizontalDivider(
                         thickness = 1.dp,
-                        color = colors.white,
+                        color = Theme.color.white,
                     )
 
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_alert),
                         title = stringResource(R.string.alarm_notifications),
-                        contentColor = colors.white,
+                        contentColor = Theme.color.white,
                     ) {
                         Switch(
                             checked = uiState.alertsNotifications,
@@ -176,11 +173,11 @@ fun SettingsScreen(
                             },
                             colors =
                                 SwitchDefaults.colors(
-                                    checkedThumbColor = colors.white,
-                                    checkedTrackColor = colors.primary120,
+                                    checkedThumbColor = Theme.color.white,
+                                    checkedTrackColor = Theme.color.primary120,
                                     checkedBorderColor = Color.Transparent,
-                                    uncheckedThumbColor = colors.white,
-                                    uncheckedTrackColor = colors.switchTrack,
+                                    uncheckedThumbColor = Theme.color.white,
+                                    uncheckedTrackColor = Theme.color.switchTrack,
                                     uncheckedBorderColor = Color.Transparent,
                                 ),
                         )
@@ -190,7 +187,7 @@ fun SettingsScreen(
                         SettingsItem(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_telegram),
                             title = stringResource(R.string.telegram_notifications),
-                            contentColor = colors.white,
+                            contentColor = Theme.color.white,
                         ) {
                             Switch(
                                 checked = uiState.telegramNotifications,
@@ -199,11 +196,11 @@ fun SettingsScreen(
                                 },
                                 colors =
                                     SwitchDefaults.colors(
-                                        checkedThumbColor = colors.white,
-                                        checkedTrackColor = colors.primary120,
+                                        checkedThumbColor = Theme.color.white,
+                                        checkedTrackColor = Theme.color.primary120,
                                         checkedBorderColor = Color.Transparent,
-                                        uncheckedThumbColor = colors.white,
-                                        uncheckedTrackColor = colors.switchTrack,
+                                        uncheckedThumbColor = Theme.color.white,
+                                        uncheckedTrackColor = Theme.color.switchTrack,
                                         uncheckedBorderColor = Color.Transparent,
                                     ),
                             )
@@ -215,20 +212,20 @@ fun SettingsScreen(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .background(colors.neutral4, RoundedCornerShape(32.dp))
+                            .background(Theme.color.neutral4, RoundedCornerShape(32.dp))
                             .padding(top = 32.dp, bottom = 24.dp, start = 24.dp, end = 32.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     Box(
                         modifier =
                             Modifier
-                                .background(colors.neutral2, RoundedCornerShape(16.dp))
+                                .background(Theme.color.neutral2, RoundedCornerShape(16.dp))
                                 .padding(vertical = 8.dp, horizontal = 12.dp),
                     ) {
                         Text(
                             text = uiState.region,
-                            style = typography.textLargeNormal,
-                            color = colors.neutral9,
+                            style = Theme.typography.textLargeNormal,
+                            color = Theme.color.neutral9,
                         )
                     }
 
@@ -242,7 +239,7 @@ fun SettingsScreen(
                                     indication = null,
                                     interactionSource = remember { MutableInteractionSource() },
                                 ) { onChangeRegionClick() },
-                        contentColor = colors.neutral9,
+                        contentColor = Theme.color.neutral9,
                     ) {
                         Box(
                             modifier =
@@ -252,7 +249,7 @@ fun SettingsScreen(
                             Icon(
                                 imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_next),
                                 contentDescription = "Icon",
-                                tint = colors.neutral9,
+                                tint = Theme.color.neutral9,
                             )
                         }
                     }
@@ -262,21 +259,21 @@ fun SettingsScreen(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .background(colors.secondary100, RoundedCornerShape(32.dp))
+                            .background(Theme.color.secondary100, RoundedCornerShape(32.dp))
                             .padding(top = 24.dp, bottom = 24.dp, start = 32.dp, end = 32.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_day_night),
                         title = stringResource(R.string.theme),
-                        contentColor = colors.neutral9,
+                        contentColor = Theme.color.neutral9,
                     ) {
                         Box(
                             modifier =
                                 Modifier
                                     .clip(shape = RoundedCornerShape(16.dp))
                                     .background(
-                                        color = colors.secondary40,
+                                        color = Theme.color.secondary40,
                                     ).clickable { expanded = !expanded }
                                     .padding(vertical = 8.dp, horizontal = 16.dp),
                         ) {
@@ -286,8 +283,8 @@ fun SettingsScreen(
                             ) {
                                 Text(
                                     text = selectedTheme,
-                                    style = typography.textMediumNormal,
-                                    color = colors.neutral9,
+                                    style = Theme.typography.textMediumNormal,
+                                    color = Theme.color.neutral9,
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Icon(
@@ -298,13 +295,13 @@ fun SettingsScreen(
                                             ImageVector.vectorResource(R.drawable.ic_arrow_down)
                                         },
                                     contentDescription = "Dropdown Icon",
-                                    tint = colors.neutral9,
+                                    tint = Theme.color.neutral9,
                                 )
                             }
 
                             DropdownMenu(
                                 expanded = expanded,
-                                containerColor = colors.neutral2,
+                                containerColor = Theme.color.neutral2,
                                 properties = PopupProperties(usePlatformDefaultWidth = true),
                                 offset = DpOffset(x = 16.dp, y = 14.dp),
                                 shape = RoundedCornerShape(16.dp),
@@ -341,8 +338,8 @@ fun SettingsScreen(
                                         text = {
                                             Text(
                                                 text = option,
-                                                style = typography.textRegularMedium,
-                                                color = colors.neutral9,
+                                                style = Theme.typography.textRegularMedium,
+                                                color = Theme.color.neutral9,
                                             )
                                         },
                                     )

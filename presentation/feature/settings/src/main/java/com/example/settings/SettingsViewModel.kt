@@ -2,7 +2,6 @@ package com.example.settings
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import com.example.settings.model.toDomainModel
 import com.example.settings.model.toUiModel
@@ -93,11 +92,7 @@ class SettingsViewModel
 
         private fun startForegroundService() {
             val intent = Intent(context, ForegroundNetworkService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
-            }
+            context.startForegroundService(intent)
         }
 
         private fun stopForegroundService() {

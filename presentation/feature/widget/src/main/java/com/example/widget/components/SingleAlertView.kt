@@ -18,19 +18,18 @@ import androidx.glance.layout.padding
 import androidx.glance.layout.width
 import androidx.glance.unit.ColorProvider
 import com.example.widget.model.AlertsUiModel
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun SingleAlertView(
     regionName: String?,
     alertsList: List<AlertsUiModel>,
 ) {
-    val colors = LocalAppTheme.current.colors
     Row(
         modifier =
             GlanceModifier
                 .fillMaxWidth()
-                .background(ColorProvider(colors.neutral9))
+                .background(ColorProvider(Theme.color.neutral9))
                 .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -49,7 +48,7 @@ fun SingleAlertView(
                 contentDescription = null,
                 modifier = GlanceModifier.height(36.dp).width(36.dp),
                 contentScale = ContentScale.FillBounds,
-                colorFilter = ColorFilter.tint(ColorProvider(colors.secondary100)),
+                colorFilter = ColorFilter.tint(ColorProvider(Theme.color.secondary100)),
             )
 
             Image(

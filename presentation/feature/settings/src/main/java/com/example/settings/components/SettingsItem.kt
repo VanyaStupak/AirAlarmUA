@@ -13,18 +13,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun SettingsItem(
     imageVector: ImageVector,
     title: String,
-    contentColor: Color = LocalAppTheme.current.colors.white,
+    contentColor: Color = Theme.color.white,
     modifier: Modifier = Modifier,
     endContent: @Composable RowScope.() -> Unit,
 ) {
-    val typography = LocalAppTheme.current.typography
-
     Row(
         modifier =
             modifier
@@ -41,7 +39,7 @@ fun SettingsItem(
 
         Text(
             text = title,
-            style = typography.textLargeMedium,
+            style = Theme.typography.textLargeMedium,
             color = contentColor,
             modifier = Modifier.weight(1f),
         )

@@ -20,13 +20,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun TopBar(onBackClick: () -> Unit) {
-    val colors = LocalAppTheme.current.colors
-    val typography = LocalAppTheme.current.typography
-
     Row(
         modifier =
             Modifier
@@ -39,7 +36,7 @@ fun TopBar(onBackClick: () -> Unit) {
             modifier =
                 Modifier
                     .clip(RoundedCornerShape(360.dp))
-                    .background(colors.neutral4)
+                    .background(Theme.color.neutral4)
                     .clickable {
                         onBackClick()
                     }.padding(vertical = 8.dp, horizontal = 16.dp),
@@ -47,14 +44,14 @@ fun TopBar(onBackClick: () -> Unit) {
             Icon(
                 imageVector = ImageVector.vectorResource(dev.stupak.ui.R.drawable.ic_arrow_back),
                 contentDescription = "Icon",
-                tint = colors.neutral9,
+                tint = Theme.color.neutral9,
             )
         }
         Text(
             modifier = Modifier.weight(1f),
             text = "Settings",
-            style = typography.heading5,
-            color = colors.neutral9,
+            style = Theme.typography.heading5,
+            color = Theme.color.neutral9,
             textAlign = TextAlign.Center,
         )
 

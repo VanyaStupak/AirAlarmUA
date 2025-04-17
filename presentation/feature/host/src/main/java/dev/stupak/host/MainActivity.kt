@@ -2,7 +2,6 @@ package dev.stupak.host
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,7 +21,7 @@ import com.example.settings.ForegroundNetworkService
 import com.example.widget.WidgetUpdateWorker
 import dagger.hilt.android.AndroidEntryPoint
 import dev.stupak.navigation.NavHost
-import dev.stupak.ui.theme.AirAlarmUATheme
+import dev.stupak.ui.AirAlarmUATheme
 import dev.stupak.usecase.model.SettingsDomainModel
 import dev.stupak.usecase.usecase.GetAppSettingsUseCase
 import dev.stupak.usecase.usecase.UpdateAppSettingsUseCase
@@ -57,11 +56,7 @@ class MainActivity : ComponentActivity() {
                 val settings = getAppSettingsUseCase().getOrNull()
                 if (settings?.alertsNotifications == true) {
                     val intent = Intent(this@MainActivity, ForegroundNetworkService::class.java)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        this@MainActivity.startForegroundService(intent)
-                    } else {
-                        this@MainActivity.startService(intent)
-                    }
+                    this@MainActivity.startForegroundService(intent)
                 }
                 darkTheme =
                     when (settings?.theme) {
@@ -72,7 +67,7 @@ class MainActivity : ComponentActivity() {
                     }
             }
 
-            AirAlarmUATheme(darkTheme = darkTheme) {
+            AirAlarmUATheme(useDarkTheme = darkTheme) {
                 NavHost(
                     onThemeUpdated = { isDarkTheme -> darkTheme = isDarkTheme },
                     initialPage = page,
@@ -97,11 +92,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
             val intent = Intent(applicationContext, ForegroundNetworkService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                applicationContext.startForegroundService(intent)
-            } else {
-                applicationContext.startService(intent)
-            }
+            applicationContext.startForegroundService(intent)
         }
     }
 

@@ -13,20 +13,19 @@ import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.unit.ColorProvider
 import com.example.widget.model.AlertsUiModel
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun DefaultAlertsView(
     regionName: String?,
     filteredList: List<AlertsUiModel>,
 ) {
-    val colors = LocalAppTheme.current.colors
     Row(
         modifier =
             GlanceModifier
                 .fillMaxWidth()
                 .height(170.dp)
-                .background(ColorProvider(colors.neutral9)),
+                .background(ColorProvider(Theme.color.neutral9)),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AlertsItem(
@@ -36,7 +35,7 @@ fun DefaultAlertsView(
             showIcon = false,
         )
 
-        Divider(ColorProvider(colors.neutral7))
+        Divider(ColorProvider(Theme.color.neutral7))
 
         Box(
             modifier =

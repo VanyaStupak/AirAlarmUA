@@ -16,19 +16,17 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun NoAlertsView(regionName: String?) {
-    val colors = LocalAppTheme.current.colors
-
     Column(
         modifier =
             GlanceModifier
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(16.dp)
-                .background(ColorProvider(colors.neutral9)),
+                .background(ColorProvider(Theme.color.neutral9)),
     ) {
         Text(
             text = regionName ?: "",

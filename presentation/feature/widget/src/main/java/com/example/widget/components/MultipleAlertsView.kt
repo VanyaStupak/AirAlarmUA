@@ -20,21 +20,19 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import com.example.widget.model.AlertsUiModel
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun MultipleAlertsView(
     regionName: String?,
     filteredList: List<AlertsUiModel>,
 ) {
-    val colors = LocalAppTheme.current.colors
-
     Row(
         modifier =
             GlanceModifier
                 .fillMaxWidth()
                 .height(170.dp)
-                .background(ColorProvider(colors.neutral9)),
+                .background(ColorProvider(Theme.color.neutral9)),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(
@@ -44,7 +42,7 @@ fun MultipleAlertsView(
                     .wrapContentHeight()
                     .defaultWeight()
                     .padding(16.dp)
-                    .background(ColorProvider(colors.neutral9)),
+                    .background(ColorProvider(Theme.color.neutral9)),
         ) {
             Text(
                 text = regionName ?: "",
@@ -60,14 +58,14 @@ fun MultipleAlertsView(
                 text = "Часткова тривога в районах",
                 style =
                     TextStyle(
-                        color = ColorProvider(colors.warning),
+                        color = ColorProvider(Theme.color.warning),
                         fontWeight = FontWeight.Normal,
                         fontSize = 14.sp,
                     ),
             )
         }
 
-        Divider(ColorProvider(colors.neutral7))
+        Divider(ColorProvider(Theme.color.neutral7))
 
         Box(
             modifier =

@@ -30,9 +30,10 @@ import com.example.widget.components.SingleAlertView
 import com.example.widget.model.AlertsUiModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dev.stupak.ui.AirAlarmUATheme
 import dev.stupak.ui.R
-import dev.stupak.ui.theme.AirAlarmUATheme
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.maps.regionsUkraine
+import dev.stupak.ui.theme.Theme
 
 class MyGlanceWidget : GlanceAppWidget() {
     private val gson = Gson()
@@ -42,8 +43,7 @@ class MyGlanceWidget : GlanceAppWidget() {
         id: GlanceId,
     ) {
         provideContent {
-            AirAlarmUATheme(darkTheme = false) {
-                val colors = LocalAppTheme.current.colors
+            AirAlarmUATheme(useDarkTheme = false) {
                 val sharedPreferences: SharedPreferences =
                     context.getSharedPreferences("alerts_prefs", Context.MODE_PRIVATE)
                 val alertsJson = sharedPreferences.getString("alerts_list", "[]")
@@ -52,12 +52,13 @@ class MyGlanceWidget : GlanceAppWidget() {
 
                 val alertsList: List<AlertsUiModel> =
                     gson.fromJson(alertsJson, object : TypeToken<List<AlertsUiModel>>() {}.type)
+                val colors = Theme.color
                 val colorsMap =
                     remember(alertsList) {
                         alertsList
                             .map { alert ->
                                 val oblastId =
-                                    dev.stupak.ui.maps.regionsUkraine
+                                    regionsUkraine
                                         .indexOf(alert.locationOblast)
                                 oblastId to alert
                             }.groupBy { it.first }
@@ -126,7 +127,7 @@ class MyGlanceWidget : GlanceAppWidget() {
                     modifier =
                         GlanceModifier
                             .fillMaxSize()
-                            .background(colors.neutral85),
+                            .background(Theme.color.neutral85),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     if (!isConnected) {

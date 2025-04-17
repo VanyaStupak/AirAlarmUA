@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun HistoryToggleButtons(
@@ -18,13 +18,11 @@ fun HistoryToggleButtons(
     selectedRange: String,
     onRangeChange: (String) -> Unit,
 ) {
-    val colors = LocalAppTheme.current.colors
-
     Row(
         modifier =
             modifier
                 .clip(RoundedCornerShape(32.dp))
-                .background(colors.neutral2)
+                .background(Theme.color.neutral2)
                 .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

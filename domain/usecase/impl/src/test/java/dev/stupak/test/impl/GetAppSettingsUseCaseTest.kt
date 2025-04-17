@@ -1,4 +1,4 @@
-package com.example.impl
+package dev.stupak.test.impl
 
 import dev.stupak.repository.SettingsRepository
 import dev.stupak.repository.model.SettingsRepositoryModel

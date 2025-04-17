@@ -16,25 +16,13 @@ class KotlinTestConventionPlugin : Plugin<Project> {
 
     override fun apply(target: Project) = with(target) {
         plugins {
-            +"dev.devlight.skeleton.convention.di"
-        }
-        tasks.withType<Test> {
-            useJUnitPlatform()
+            +"dev.stupak.airalarmua.convention.di"
         }
         with(libs) {
             dependencies {
-                implementTestDependency("test.junit.api")
-                implementTestRuntimeOnly("test.junit.jupiter")
-                implementTestRuntimeOnly("test.junit.engine")
-                implementTestDependency("test.junit.params")
-                implementTestDependency("mockito.core")
-                implementTestDependency("mockito.kotlin")
-                implementTestDependency("kotlinx.coroutines.test")
-                implementTestRuntimeOnly("test.junit.vintage")
-                implementTestDependency("kotlin.test.junit5")
+                implementTestDependency("junit")
                 implementTestDependency("mockk")
-                implementTestDependency("turbine")
-                implementTestDependency("truth")
+                implementTestDependency("kotlinx.coroutines.test")
             }
         }
     }

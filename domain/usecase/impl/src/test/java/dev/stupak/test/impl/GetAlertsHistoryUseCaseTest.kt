@@ -1,7 +1,8 @@
-package com.example.impl
+package dev.stupak.test.impl
 
 import dev.stupak.repository.AlertsRepository
 import dev.stupak.repository.model.RepositoryAlertsList
+import dev.stupak.usecase.exception.UnknownException
 import dev.stupak.usecase.impl.usecase.GetAlertsHistoryUseCaseImpl
 import dev.stupak.usecase.model.DomainAlertsList
 import dev.stupak.usecase.usecase.GetAlertsHistoryUseCase
@@ -12,7 +13,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import java.io.IOException
 
 class GetAlertsHistoryUseCaseTest {
     private lateinit var getAlertsHistoryUseCase: GetAlertsHistoryUseCase
@@ -44,7 +44,7 @@ class GetAlertsHistoryUseCaseTest {
         runTest {
             val uid = 5
             val period = "month"
-            val exception = IOException("Network error")
+            val exception = UnknownException()
 
             coEvery { alertsRepository.getAlertsForPeriod(uid, period) } throws exception
 

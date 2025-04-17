@@ -9,24 +9,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun ErrorMessage(message: String) {
-    val colors = LocalAppTheme.current.colors
-    val typography = LocalAppTheme.current.typography
     Box(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .background(colors.networkConnectivity)
+                .background(Theme.color.networkConnectivity)
                 .padding(vertical = 4.dp, horizontal = 8.dp),
         contentAlignment = Alignment.Center,
     ) {
         Text(
             text = message,
-            style = typography.textRegularNormal,
-            color = colors.white,
+            style = Theme.typography.textRegularNormal,
+            color = Theme.color.white,
         )
     }
 }

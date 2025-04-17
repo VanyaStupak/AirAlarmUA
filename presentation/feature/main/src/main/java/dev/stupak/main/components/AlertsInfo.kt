@@ -15,16 +15,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun AlertsInfo(
     modifier: Modifier,
     isRegionShown: Boolean,
 ) {
-    val colors = LocalAppTheme.current.colors
-    val typography = LocalAppTheme.current.typography
-
     Column(
         modifier = modifier,
     ) {
@@ -43,8 +40,8 @@ fun AlertsInfo(
                     } else {
                         stringResource(dev.stupak.ui.R.string.air_raid_alert_in_area)
                     },
-                style = typography.textRegularNormal,
-                color = colors.neutral9,
+                style = Theme.typography.textRegularNormal,
+                color = Theme.color.neutral9,
             )
         }
 
@@ -65,8 +62,8 @@ fun AlertsInfo(
                     } else {
                         stringResource(dev.stupak.ui.R.string.partial_alert_in_districts)
                     },
-                style = typography.textRegularNormal,
-                color = colors.neutral9,
+                style = Theme.typography.textRegularNormal,
+                color = Theme.color.neutral9,
             )
         }
     }

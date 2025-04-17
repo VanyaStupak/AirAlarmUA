@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import dev.stupak.common.Strings
 import dev.stupak.main.MainScreenState
 import dev.stupak.ui.R
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -45,15 +45,13 @@ fun AlertsHistoryBottomSheet(
     selectedRange: String,
     onRangeSelected: (String) -> Unit,
 ) {
-    val colors = LocalAppTheme.current.colors
-    val typography = LocalAppTheme.current.typography
     ModalBottomSheet(
         modifier = modifier.statusBarsPadding(),
         onDismissRequest = { onDismissRequest() },
         sheetState = sheetState,
         scrimColor = Color.Transparent,
         shape = RoundedCornerShape(32.dp),
-        containerColor = colors.statsBackground,
+        containerColor = Theme.color.statsBackground,
         dragHandle = {
             Box(
                 modifier =
@@ -62,7 +60,7 @@ fun AlertsHistoryBottomSheet(
                         .width(50.dp)
                         .height(6.dp)
                         .clip(RoundedCornerShape(50))
-                        .background(colors.primary120),
+                        .background(Theme.color.primary120),
             )
         },
     ) {
@@ -72,8 +70,8 @@ fun AlertsHistoryBottomSheet(
                     Modifier
                         .padding(start = 12.dp, end = 12.dp, top = 8.dp),
                 text = regionName,
-                style = typography.heading4,
-                color = colors.neutral9,
+                style = Theme.typography.heading4,
+                color = Theme.color.neutral9,
             )
             if (noInternet || historyError != null) {
                 Box(
@@ -86,7 +84,7 @@ fun AlertsHistoryBottomSheet(
                 ) {
                     Text(
                         text = stringResource(R.string.history_error),
-                        color = colors.neutral9,
+                        color = Theme.color.neutral9,
                     )
                 }
             }
@@ -209,7 +207,7 @@ fun AlertsHistoryBottomSheet(
                     contentAlignment = Alignment.Center,
                 ) {
                     CircularProgressIndicator(
-                        color = colors.secondary100,
+                        color = Theme.color.secondary100,
                     )
                 }
             } else {
@@ -230,20 +228,20 @@ fun AlertsHistoryBottomSheet(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .background(colors.statsAmount, RoundedCornerShape(32.dp))
+                            .background(Theme.color.statsAmount, RoundedCornerShape(32.dp))
                             .padding(32.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         text = stringResource(R.string.total_alerts),
-                        color = colors.toggleText,
-                        style = typography.heading6,
+                        color = Theme.color.toggleText,
+                        style = Theme.typography.heading6,
                     )
 
                     Text(
                         text = totalAlerts.toString(),
-                        color = colors.toggleText,
-                        style = typography.heading6,
+                        color = Theme.color.toggleText,
+                        style = Theme.typography.heading6,
                     )
                 }
 
@@ -251,22 +249,22 @@ fun AlertsHistoryBottomSheet(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .background(colors.statsTime, RoundedCornerShape(32.dp))
+                            .background(Theme.color.statsTime, RoundedCornerShape(32.dp))
                             .padding(32.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         text = stringResource(R.string.total_alerts_time),
-                        color = colors.toggleText,
-                        style = typography.heading6,
+                        color = Theme.color.toggleText,
+                        style = Theme.typography.heading6,
                     )
 
                     Text(
                         text =
                             "$hours ${stringResource(id = R.string.hours_and_minutes)}" +
                                 " $minutes ${stringResource(R.string.minutes)}",
-                        color = colors.toggleText,
-                        style = typography.heading6,
+                        color = Theme.color.toggleText,
+                        style = Theme.typography.heading6,
                     )
                 }
             }

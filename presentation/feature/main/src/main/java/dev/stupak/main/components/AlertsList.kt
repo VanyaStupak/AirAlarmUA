@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.stupak.common.parseDate
 import dev.stupak.main.model.AlertsUiModel
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun AlertsList(
@@ -26,9 +26,6 @@ fun AlertsList(
     modifier: Modifier = Modifier,
     listState: LazyListState,
 ) {
-    val colors = LocalAppTheme.current.colors
-    val typography = LocalAppTheme.current.typography
-
     val sortedAlerts = alerts.sortedByDescending { parseDate(it.startedAt) }
 
     if (sortedAlerts.isEmpty()) {
@@ -40,8 +37,8 @@ fun AlertsList(
         ) {
             Text(
                 text = stringResource(dev.stupak.ui.R.string.no_alerts_now),
-                style = typography.textMediumNormal,
-                color = colors.neutral9,
+                style = Theme.typography.textMediumNormal,
+                color = Theme.color.neutral9,
             )
         }
     } else {

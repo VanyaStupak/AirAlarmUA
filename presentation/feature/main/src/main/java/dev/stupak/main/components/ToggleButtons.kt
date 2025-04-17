@@ -16,7 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import dev.stupak.ui.theme.LocalAppTheme
+import dev.stupak.ui.theme.Theme
 
 @Composable
 fun ToggleButtons(
@@ -24,16 +24,13 @@ fun ToggleButtons(
     text: String,
     onClick: () -> Unit,
 ) {
-    val colors = LocalAppTheme.current.colors
-    val typography = LocalAppTheme.current.typography
-
     Row(
         modifier =
             Modifier
                 .clip(RoundedCornerShape(360.dp))
                 .background(
                     if (isSelected) {
-                        colors.toggleButton
+                        Theme.color.toggleButton
                     } else {
                         Color.Transparent
                     },
@@ -50,8 +47,8 @@ fun ToggleButtons(
         Text(
             text = text,
             modifier = Modifier.weight(1f, fill = false),
-            color = if (isSelected) colors.toggleText else colors.neutral9,
-            style = typography.textMediumMedium,
+            color = if (isSelected) Theme.color.toggleText else Theme.color.neutral9,
+            style = Theme.typography.textMediumMedium,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
