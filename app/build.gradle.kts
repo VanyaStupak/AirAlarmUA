@@ -1,3 +1,5 @@
+import dev.stupak.airalarmua.convention.core.utils.getDebugSuffix
+
 plugins {
     id("dev.stupak.airalarmua.convention.application")
     id("dev.stupak.airalarmua.convention.di")
@@ -7,6 +9,26 @@ plugins {
 
 android {
     namespace = "dev.stupak.airalarmua"
+
+    buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = getDebugSuffix()
+            resValue("string", "app_name", "AIRALARMUA|DEBUG")
+            isDebuggable = true
+        }
+        release {
+            resValue("string", "app_name", "AIRALARMUA")
+//            signingConfig = signingConfigs.getByName("release")
+            isDebuggable = false
+            isShrinkResources = true
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "$rootDir/proguard-rules.pro"
+            )
+        }
+    }
 }
 
 dependencies {

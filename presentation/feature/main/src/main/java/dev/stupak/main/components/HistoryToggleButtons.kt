@@ -28,13 +28,13 @@ fun HistoryToggleButtons(
     ) {
         ToggleButtons(
             isSelected = selectedRange == "month",
-            text = stringResource(dev.stupak.ui.R.string.month),
+            text = stringResource(dev.stupak.localisation.R.string.month),
             onClick = { onRangeChange("month") },
         )
 
         ToggleButtons(
             isSelected = selectedRange == "week",
-            text = stringResource(dev.stupak.ui.R.string.week),
+            text = stringResource(dev.stupak.localisation.R.string.week),
             onClick = { onRangeChange("week") },
         )
     }

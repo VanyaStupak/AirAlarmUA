@@ -36,9 +36,9 @@ fun AlertsInfo(
                 modifier = Modifier.align(Alignment.CenterVertically),
                 text =
                     if (isRegionShown) {
-                        stringResource(dev.stupak.ui.R.string.air_raid_alert_in_region)
+                        stringResource(dev.stupak.localisation.R.string.air_raid_alert_in_region)
                     } else {
-                        stringResource(dev.stupak.ui.R.string.air_raid_alert_in_area)
+                        stringResource(dev.stupak.localisation.R.string.air_raid_alert_in_area)
                     },
                 style = Theme.typography.textRegularNormal,
                 color = Theme.color.neutral9,
@@ -58,9 +58,9 @@ fun AlertsInfo(
                 modifier = Modifier.align(Alignment.CenterVertically),
                 text =
                     if (isRegionShown) {
-                        stringResource(dev.stupak.ui.R.string.other_types_of_alerts)
+                        stringResource(dev.stupak.localisation.R.string.other_types_of_alerts)
                     } else {
-                        stringResource(dev.stupak.ui.R.string.partial_alert_in_districts)
+                        stringResource(dev.stupak.localisation.R.string.partial_alert_in_districts)
                     },
                 style = Theme.typography.textRegularNormal,
                 color = Theme.color.neutral9,

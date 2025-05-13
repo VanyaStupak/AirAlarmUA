@@ -36,7 +36,7 @@ fun AlertsList(
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = stringResource(dev.stupak.ui.R.string.no_alerts_now),
+                text = stringResource(dev.stupak.localisation.R.string.no_alerts_now),
                 style = Theme.typography.textMediumNormal,
                 color = Theme.color.neutral9,
             )

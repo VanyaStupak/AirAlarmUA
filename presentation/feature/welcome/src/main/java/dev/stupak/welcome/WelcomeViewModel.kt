@@ -8,6 +8,7 @@ import dev.stupak.platform.viewmodel.BaseViewModel
 import dev.stupak.usecase.usecase.GetAppSettingsUseCase
 import dev.stupak.usecase.usecase.UpdateAppSettingsUseCase
 import dev.stupak.welcome.model.toDomainModel
+import dev.stupak.welcome.model.toUiModel
 import dev.stupak.welcome.model.toWelcomeState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,14 +37,14 @@ class WelcomeViewModel
                 _welcomeState.value =
                     when {
                         result.isSuccess -> {
-                            val settings = result.getOrNull()?.toWelcomeState()
+                            val settings = result.getOrNull()?.toUiModel()
                             _welcomeState.value.copy(
                                 region = settings?.region ?: "",
                                 isFirstRun = sharedPreferences.getBoolean("is_first_run", true),
                                 notifications = settings?.notifications ?: false,
                                 alertsNotifications = settings?.alertsNotifications ?: false,
                                 telegramNotifications = settings?.telegramNotifications ?: false,
-                                theme = settings?.theme ?: WelcomeState.Theme.AUTO,
+                                theme = settings?.toWelcomeState()?.theme ?: WelcomeState.Theme.AUTO,
                             )
                         }
                         else -> _welcomeState.value

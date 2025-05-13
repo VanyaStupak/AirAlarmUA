@@ -12,5 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
+proguard/
 local.properties
 /gradle.properties
+# secrets
+/configure/

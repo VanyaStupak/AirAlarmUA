@@ -1,9 +1,5 @@
 package dev.stupak.main.components
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -38,31 +33,20 @@ import dev.stupak.common.getElapsedTime
 import dev.stupak.main.model.AlertsUiModel
 import dev.stupak.ui.R
 import dev.stupak.ui.theme.Theme
+import kotlinx.coroutines.delay
 
 @Composable
 fun AlertItem(alert: AlertsUiModel) {
     val (icon, accentColor) = getAlertIconAndColor(alert.alertType)
     var elapsedTime by remember { mutableStateOf(getElapsedTime(alert.startedAt)) }
-    val context = LocalContext.current
-    // TODO fix
-    DisposableEffect(Unit) {
-        val receiver =
-            object : BroadcastReceiver() {
-                override fun onReceive(
-                    context: Context?,
-                    intent: Intent?,
-                ) {
-                    if (intent?.action == Intent.ACTION_TIME_TICK) {
-                        elapsedTime = getElapsedTime(alert.startedAt)
-                    }
-                }
-            }
 
-        val filter = IntentFilter(Intent.ACTION_TIME_TICK)
-        context.registerReceiver(receiver, filter)
+    LaunchedEffect(alert.startedAt) {
+        while (true) {
+            elapsedTime = getElapsedTime(alert.startedAt)
 
-        onDispose {
-            context.unregisterReceiver(receiver)
+            val now = System.currentTimeMillis()
+            val millisToNextMinute = 60_000 - (now % 60_000)
+            delay(millisToNextMinute)
         }
     }
     Row(
@@ -114,10 +98,10 @@ fun AlertItem(alert: AlertsUiModel) {
             Text(
                 text =
                     when (alert.alertType) {
-                        "air_raid" -> stringResource(R.string.air_raid_alert)
-                        "artillery_shelling" -> stringResource(R.string.threat_of_shelling)
-                        "urban_fights" -> stringResource(R.string.street_fights)
-                        else -> stringResource(R.string.air_raid_alert)
+                        "air_raid" -> stringResource(dev.stupak.localisation.R.string.air_raid_alert)
+                        "artillery_shelling" -> stringResource(dev.stupak.localisation.R.string.threat_of_shelling)
+                        "urban_fights" -> stringResource(dev.stupak.localisation.R.string.street_fights)
+                        else -> stringResource(dev.stupak.localisation.R.string.air_raid_alert)
                     },
                 color =
                     if (alert.alertType != "air_raid") {

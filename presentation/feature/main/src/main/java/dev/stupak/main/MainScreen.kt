@@ -178,7 +178,7 @@ fun MainScreen(
                 .statusBarsPadding(),
     ) {
         if (!uiState.isConnected) {
-            ErrorMessage(stringResource(R.string.no_internet_connection))
+            ErrorMessage(stringResource(dev.stupak.localisation.R.string.no_internet_connection))
         }
         if (uiState.error != null) {
             ErrorMessage(uiState.error)
@@ -317,7 +317,7 @@ fun MainScreen(
                         Modifier
                             .padding(top = 8.dp)
                             .align(Alignment.Bottom),
-                    text = stringResource(R.string.active_alerts),
+                    text = stringResource(dev.stupak.localisation.R.string.active_alerts),
                     style = Theme.typography.heading5,
                     color = Theme.color.neutral9,
                 )
@@ -334,7 +334,7 @@ fun MainScreen(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            text = stringResource(R.string.statistics),
+                            text = stringResource(dev.stupak.localisation.R.string.statistics),
                             style = Theme.typography.textRegularNormal,
                             color = Theme.color.white,
                         )

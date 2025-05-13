@@ -83,7 +83,7 @@ fun AlertsHistoryBottomSheet(
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = stringResource(R.string.history_error),
+                        text = stringResource(dev.stupak.localisation.R.string.history_error),
                         color = Theme.color.neutral9,
                     )
                 }
@@ -233,7 +233,7 @@ fun AlertsHistoryBottomSheet(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
-                        text = stringResource(R.string.total_alerts),
+                        text = stringResource(dev.stupak.localisation.R.string.total_alerts),
                         color = Theme.color.toggleText,
                         style = Theme.typography.heading6,
                     )
@@ -254,15 +254,15 @@ fun AlertsHistoryBottomSheet(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
-                        text = stringResource(R.string.total_alerts_time),
+                        text = stringResource(dev.stupak.localisation.R.string.total_alerts_time),
                         color = Theme.color.toggleText,
                         style = Theme.typography.heading6,
                     )
 
                     Text(
                         text =
-                            "$hours ${stringResource(id = R.string.hours_and_minutes)}" +
-                                " $minutes ${stringResource(R.string.minutes)}",
+                            "$hours ${stringResource(id = dev.stupak.localisation.R.string.hours_and_minutes)}" +
+                                " $minutes ${stringResource(dev.stupak.localisation.R.string.minutes)}",
                         color = Theme.color.toggleText,
                         style = Theme.typography.heading6,
                     )

@@ -74,7 +74,7 @@ fun SettingsScreen(
     val permissionLauncher =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-                if (granted) isSwitchChecked = true else isSwitchChecked = false
+                isSwitchChecked = granted
             }
         } else {
             null
@@ -85,13 +85,23 @@ fun SettingsScreen(
     }
 
     var expanded by remember { mutableStateOf(false) }
-    val options = listOf("Автоматично", "Світла", "Темна")
+
+    val themeAuto = stringResource(dev.stupak.localisation.R.string.auto)
+    val themeLight = stringResource(dev.stupak.localisation.R.string.light)
+    val themeDark = stringResource(dev.stupak.localisation.R.string.dark)
+
+    val themeOptions =
+        listOf(
+            themeAuto,
+            themeLight,
+            themeDark,
+        )
 
     val selectedTheme =
         when (uiState.theme) {
-            SettingsState.Theme.AUTO -> options[0]
-            SettingsState.Theme.LIGHT -> options[1]
-            SettingsState.Theme.DARK -> options[2]
+            SettingsState.Theme.AUTO -> themeOptions[0]
+            SettingsState.Theme.LIGHT -> themeOptions[1]
+            SettingsState.Theme.DARK -> themeOptions[2]
         }
 
     Scaffold(
@@ -117,14 +127,14 @@ fun SettingsScreen(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     Text(
-                        text = stringResource(R.string.notifications),
+                        text = stringResource(dev.stupak.localisation.R.string.notifications),
                         style = Theme.typography.heading4,
                         color = Theme.color.white,
                     )
 
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_notifications),
-                        title = stringResource(R.string.allow_notifications),
+                        title = stringResource(dev.stupak.localisation.R.string.allow_notifications),
                         contentColor = Theme.color.white,
                     ) {
                         Switch(
@@ -163,7 +173,7 @@ fun SettingsScreen(
 
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_alert),
-                        title = stringResource(R.string.alarm_notifications),
+                        title = stringResource(dev.stupak.localisation.R.string.alarm_notifications),
                         contentColor = Theme.color.white,
                     ) {
                         Switch(
@@ -186,7 +196,7 @@ fun SettingsScreen(
                     if (uiState.alertsNotifications) {
                         SettingsItem(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_telegram),
-                            title = stringResource(R.string.telegram_notifications),
+                            title = stringResource(dev.stupak.localisation.R.string.telegram_notifications),
                             contentColor = Theme.color.white,
                         ) {
                             Switch(
@@ -231,7 +241,7 @@ fun SettingsScreen(
 
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_pin_area),
-                        title = stringResource(R.string.change_region),
+                        title = stringResource(dev.stupak.localisation.R.string.change_region),
                         modifier =
                             Modifier
                                 .padding(start = 8.dp)
@@ -265,7 +275,7 @@ fun SettingsScreen(
                 ) {
                     SettingsItem(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_day_night),
-                        title = stringResource(R.string.theme),
+                        title = stringResource(dev.stupak.localisation.R.string.theme),
                         contentColor = Theme.color.neutral9,
                     ) {
                         Box(
@@ -310,15 +320,15 @@ fun SettingsScreen(
                                     Modifier
                                         .fillMaxWidth(),
                             ) {
-                                options.forEach { option ->
+                                themeOptions.forEach { option ->
                                     DropdownMenuItem(
                                         onClick = {
                                             onAction.invoke(
                                                 SettingsIntent.ChangeTheme(
                                                     when (option) {
-                                                        "Автоматично" -> SettingsState.Theme.AUTO
-                                                        "Світла" -> SettingsState.Theme.LIGHT
-                                                        "Темна" -> SettingsState.Theme.DARK
+                                                        themeAuto -> SettingsState.Theme.AUTO
+                                                        themeLight -> SettingsState.Theme.LIGHT
+                                                        themeDark -> SettingsState.Theme.DARK
                                                         else -> {
                                                             SettingsState.Theme.AUTO
                                                         }
@@ -328,9 +338,9 @@ fun SettingsScreen(
                                             expanded = false
                                             onThemeUpdated.invoke(
                                                 when (option) {
-                                                    "Автоматично" -> isSystemInDarkTheme
-                                                    "Світла" -> false
-                                                    "Темна" -> true
+                                                    themeAuto -> isSystemInDarkTheme
+                                                    themeLight -> false
+                                                    themeDark -> true
                                                     else -> isSystemInDarkTheme
                                                 },
                                             )

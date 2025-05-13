@@ -16,6 +16,7 @@ import org.gradle.internal.os.OperatingSystem
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.register
 import java.io.File
+import java.io.FileInputStream
 import java.util.Properties
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
@@ -80,44 +81,45 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 sourceCompatibility = ProjectConfig.JAVA_VERSION
                 targetCompatibility = ProjectConfig.JAVA_VERSION
             }
-//            signingConfigs {
-//                getByName("debug") {
-//                    val properties = Properties().also {
-//                        it.load(
-//                            FileInputStream(
-//                                File(
-//                                    project.rootDir,
-//                                    "./configure/secrets/secrets.properties"
-//                                )
-//                            )
-//                        )
-//                    }
-//                    keyAlias = properties.getProperty("debugKey")
-//                    keyPassword = properties.getProperty("debugPassword")
-//
-//                    storePassword = properties.getProperty("debugPassword")
-//                    storeFile =
-//                        File(project.rootDir, "./configure/signing/aos-native-skeleton.debug")
-//                }
-//                create("release") {
-//                    val properties = Properties().also {
-//                        it.load(
-//                            FileInputStream(
-//                                File(
-//                                    project.rootDir,
-//                                    "./configure/secrets/secrets.properties"
-//                                )
-//                            )
-//                        )
-//                    }
-//                    keyAlias = properties.getProperty("releaseKey")
-//                    keyPassword = properties.getProperty("releasePassword")
-//
-//                    storePassword = properties.getProperty("releasePassword")
-//                    storeFile =
-//                        File(project.rootDir, "./configure/signing/aos-native-skeleton.release")
-//                }
-//            }
+
+            signingConfigs {
+                getByName("debug") {
+                    val properties = Properties().also {
+                        it.load(
+                            FileInputStream(
+                                File(
+                                    project.rootDir,
+                                    "./configure/secrets/secrets.properties"
+                                )
+                            )
+                        )
+                    }
+                    keyAlias = properties.getProperty("debugKey")
+                    keyPassword = properties.getProperty("debugPassword")
+
+                    storePassword = properties.getProperty("debugPassword")
+                    storeFile =
+                        File(project.rootDir, "./configure/signing/air-alarm-ua.debug")
+                }
+                create("release") {
+                    val properties = Properties().also {
+                        it.load(
+                            FileInputStream(
+                                File(
+                                    project.rootDir,
+                                    "./configure/secrets/secrets.properties"
+                                )
+                            )
+                        )
+                    }
+                    keyAlias = properties.getProperty("releaseKey")
+                    keyPassword = properties.getProperty("releasePassword")
+
+                    storePassword = properties.getProperty("releasePassword")
+                    storeFile =
+                        File(project.rootDir, "./configure/signing/air-alarm-ua.jks")
+                }
+            }
 
             packaging {
                 resources {

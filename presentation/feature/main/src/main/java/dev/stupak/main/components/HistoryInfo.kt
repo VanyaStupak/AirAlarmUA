@@ -33,7 +33,7 @@ fun HistoryInfo(modifier: Modifier) {
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 modifier = Modifier.align(Alignment.CenterVertically),
-                text = stringResource(dev.stupak.ui.R.string.number_of_alerts),
+                text = stringResource(dev.stupak.localisation.R.string.number_of_alerts),
                 style = Theme.typography.textRegularNormal,
                 color = Theme.color.neutral9,
             )
@@ -51,7 +51,7 @@ fun HistoryInfo(modifier: Modifier) {
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 modifier = Modifier.align(Alignment.CenterVertically),
-                text = stringResource(dev.stupak.ui.R.string.alert_time_in_hours),
+                text = stringResource(dev.stupak.localisation.R.string.alert_time_in_hours),
                 style = Theme.typography.textRegularNormal,
                 color = Theme.color.neutral9,
             )

@@ -59,9 +59,9 @@ class ForegroundNetworkService : Service() {
     ) {
         if (isAlert != wasAlertActive) {
             if (isAlert) {
-                sendNotification(region, getString(dev.stupak.ui.R.string.air_raid_alert))
+                sendNotification(region, getString(dev.stupak.localisation.R.string.air_raid_alert))
             } else if (region == newRegion) {
-                sendNotification(region, getString(dev.stupak.ui.R.string.air_alert_ended))
+                sendNotification(region, getString(dev.stupak.localisation.R.string.air_alert_ended))
             }
             wasAlertActive = isAlert
         }
@@ -69,9 +69,9 @@ class ForegroundNetworkService : Service() {
 
         val message =
             if (isAlert) {
-                getString(dev.stupak.ui.R.string.air_raid_alert_in_area)
+                getString(dev.stupak.localisation.R.string.air_raid_alert_in_area)
             } else {
-                getString(dev.stupak.ui.R.string.no_air_alert)
+                getString(dev.stupak.localisation.R.string.no_air_alert)
             }
         startForeground(NOTIFICATION_ID, createNotification(region, message))
     }

@@ -29,7 +29,7 @@ fun MapToggleButtons(
     ) {
         ToggleButtons(
             isSelected = selectedMap == "Ukraine",
-            text = stringResource(dev.stupak.ui.R.string.ukraine),
+            text = stringResource(dev.stupak.localisation.R.string.ukraine),
             onClick = { onMapChange("Ukraine") },
         )
 

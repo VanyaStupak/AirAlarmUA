@@ -35,6 +35,12 @@
     <string name="kyiv_region">Київська область…</string>
     <string name="start">Розпочати</string>
     <string name="done">Готово</string>
+    <string name="language">Мова</string>
+    <string name="auto">Автоматично</string>
+    <string name="light">Світла</string>
+    <string name="dark">Темна</string>
+    <string name="ukrainian">Українська</string>
+    <string name="english">Англійська</string>
     <string name="error">"Сталася помилка, перевірте з'єднання або перезапустіть застоунок"</string>
     <string name="history_error">"Не вдалося завантажити історію тривог, перевірте з'єднання з інтернетом або перезапустіть застосунок"</string>
 </resources>

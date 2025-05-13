@@ -128,7 +128,7 @@ fun WelcomeScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = stringResource(R.string.select_region),
+                    text = stringResource(dev.stupak.localisation.R.string.select_region),
                     color = Theme.color.neutral9,
                     style = Theme.typography.heading4,
                 )
@@ -143,7 +143,7 @@ fun WelcomeScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = stringResource(R.string.enter_region_name),
+                text = stringResource(dev.stupak.localisation.R.string.enter_region_name),
                 color = Theme.color.neutral8,
                 style = Theme.typography.textRegularMedium,
             )
@@ -200,7 +200,7 @@ fun WelcomeScreen(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 placeholder = {
                     Text(
-                        text = stringResource(R.string.kyiv_region),
+                        text = stringResource(dev.stupak.localisation.R.string.kyiv_region),
                         color = Theme.color.neutral6,
                         style = Theme.typography.textMediumMedium,
                     )
@@ -301,7 +301,14 @@ fun WelcomeScreen(
                 horizontalArrangement = Arrangement.Center,
             ) {
                 Text(
-                    text = if (uiState.isFirstRun) stringResource(R.string.start) else stringResource(R.string.done),
+                    text =
+                        if (uiState.isFirstRun) {
+                            stringResource(
+                                dev.stupak.localisation.R.string.start,
+                            )
+                        } else {
+                            stringResource(dev.stupak.localisation.R.string.done)
+                        },
                     style = Theme.typography.textMediumSemiBold,
                     color =
                         if (isButtonEnabled) {

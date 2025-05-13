@@ -98,7 +98,7 @@ class MainViewModel
 
                         history.isFailure -> {
                             _mainUiState.value.copy(
-                                historyError = context.getString(dev.stupak.ui.R.string.history_error),
+                                historyError = context.getString(dev.stupak.localisation.R.string.history_error),
                                 isHistoryLoading = false,
                             )
                         }
@@ -134,7 +134,7 @@ class MainViewModel
                                 result.isFailure -> {
                                     _mainUiState.value.copy(
                                         isLoading = false,
-                                        error = context.getString(dev.stupak.ui.R.string.error),
+                                        error = context.getString(dev.stupak.localisation.R.string.error),
                                     )
                                 }
 

@@ -44,6 +44,7 @@
             <option value="$PROJECT_DIR$/domain/usecase/impl" />
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/presentation/core" />
+            <option value="$PROJECT_DIR$/presentation/core/localisation" />
             <option value="$PROJECT_DIR$/presentation/core/navigation" />
             <option value="$PROJECT_DIR$/presentation/core/platform" />
             <option value="$PROJECT_DIR$/presentation/core/worker" />

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.settings.model.toDomainModel
+import com.example.settings.model.toSettingsState
 import com.example.settings.model.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -40,7 +41,7 @@ class SettingsViewModel
                                 notifications = settings?.notifications ?: false,
                                 alertsNotifications = settings?.alertsNotifications ?: false,
                                 telegramNotifications = settings?.telegramNotifications ?: false,
-                                theme = settings?.theme ?: SettingsState.Theme.AUTO,
+                                theme = settings?.toSettingsState()?.theme ?: SettingsState.Theme.AUTO,
                                 region = settings?.region ?: "",
                             )
                         }

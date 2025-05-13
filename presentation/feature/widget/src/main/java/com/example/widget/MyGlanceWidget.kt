@@ -136,7 +136,7 @@ class MyGlanceWidget : GlanceAppWidget() {
                             contentAlignment = Alignment.Center,
                         ) {
                             Text(
-                                text = context.getString(R.string.no_internet_connection),
+                                text = context.getString(dev.stupak.localisation.R.string.no_internet_connection),
                                 style =
                                     TextStyle(
                                         color = ColorProvider(Color.White),
